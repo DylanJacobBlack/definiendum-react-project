@@ -1,0 +1,23 @@
+* {
+  font-family: 'Nunito', sans-serif;
+}
+
+.nav-backdrop {
+  background-color: rgb(80, 52, 80);
+  width: 100vw;
+  height: 65px;
+  font-family: 'Nunito', sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+}
+
+.logo-text {
+  font-family: 'Righteous', sans-serif;
+  color:rgb(255, 255, 255);
+}
