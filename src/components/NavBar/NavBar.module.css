@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu:wght@500&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+.nav-backdrop {
+  background-color: rgb(80, 52, 80);
+  width: 100vw;
+  height: 65px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 1rem;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+}
+
+.logo-text {
+  font-family: "Righteous", cursive;
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  width: 210px;
+  font-size: x-large;
+}
+
+.links {
+  display: flex;
+  justify-content: space-evenly;
+  font-family: 'Ubuntu', sans-serif;
+  color: rgb(255, 255, 255);
+}
+
+.links h1 {
+  font-size: x-large;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.links div {
+  font-size: large;
+  margin: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.grower {
+  flex-grow: 1;
+}
