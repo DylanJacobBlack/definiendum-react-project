@@ -1,0 +1,5 @@
+.lesson {
+  display: flex;
+  height: calc(100vh - 65px);
+  background-color: rgb(216, 250, 230);
+}

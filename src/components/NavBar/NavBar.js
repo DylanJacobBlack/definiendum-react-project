@@ -1,5 +1,6 @@
-import classes from "./NavBar.module.css";
+import { Link } from "react-router-dom";
 
+import classes from "./NavBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,9 +16,9 @@ const NavBar = () => {
         </div>
         <div className={classes.grower}></div>
         <div className={classes.links}>
-          <div>link</div>
-          <div>link</div>
-          <div>login</div>
+          <Link to="/lessons">lessons</Link>
+          <Link to="/lesson">lesson</Link>
+          <Link>login</Link>
         </div>
       </div>
     </nav>

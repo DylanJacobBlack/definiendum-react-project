@@ -1,5 +1,5 @@
 import classes from "./Lessons.module.css";
-import Lesson from "./Lesson";
+import Lesson from "../components/Lessons/Lesson";
 
 const Lessons = () => {
   return (

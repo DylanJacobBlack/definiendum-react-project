@@ -3,8 +3,8 @@ import { Route } from 'react-router-dom';
 import './App.module.css'
 
 import NavBar from "./components/NavBar/NavBar";
-import Lessons from "./components/Lessons/Lessons";
-import Lesson from './components/Lesson/Lesson';
+import Lessons from "./pages/Lessons";
+import Lesson from './pages/Lesson';
 
 function App() {
   return (
