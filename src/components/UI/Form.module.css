@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(216, 250, 230);
+  min-height: calc(100vh - 65px);
+}
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px;
+  margin: 20px;
+  min-width: 400px;
+  border: solid 2px black;
+}

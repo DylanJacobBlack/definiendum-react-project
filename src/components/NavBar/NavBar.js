@@ -19,8 +19,8 @@ const NavBar = () => {
           <NavLink activeClassName={classes.active} to="/lessons">
             lessons
           </NavLink>
-          <NavLink activeClassName={classes.active} to="/lesson">
-            lesson
+          <NavLink activeClassName={classes.active} to="/new">
+            new lesson
           </NavLink>
           <NavLink activeClassName={classes.active} to="/login">
             login
