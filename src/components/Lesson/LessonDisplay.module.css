@@ -17,9 +17,9 @@
 }
 
 .button:hover {
-  background-color: rgb(175, 175, 175);
+  background-color: rgb(226, 225, 225);
   cursor: pointer;
-  transition-duration: 300ms;
+  transition-duration: 150ms;
 }
 
 .page {

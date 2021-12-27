@@ -7,12 +7,12 @@ import {
 
 const LessonDisplay = () => {
   return (
-    <div class={classes.lesson}>
-      <button class={classes.button}>
+    <div className={classes.lesson}>
+      <button className={classes.button}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
-      <div class={classes.page}>Lesson text goes here.</div>
-      <button class={classes.button}>
+      <div className={classes.page}>Lesson text goes here.</div>
+      <button className={classes.button}>
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
     </div>

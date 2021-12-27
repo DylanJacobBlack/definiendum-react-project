@@ -5,7 +5,7 @@ import LessonDisplay from "../components/Lesson/LessonDisplay"
 
 const Lesson = () => {
   return (
-    <div class={classes.lesson}>
+    <div className={classes.lesson}>
       <SideBar />
       <LessonDisplay />
     </div>

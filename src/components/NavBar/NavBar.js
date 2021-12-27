@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import classes from "./NavBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,9 +16,15 @@ const NavBar = () => {
         </div>
         <div className={classes.grower}></div>
         <div className={classes.links}>
-          <Link to="/lessons">lessons</Link>
-          <Link to="/lesson">lesson</Link>
-          <Link>login</Link>
+          <NavLink activeClassName={classes.active} to="/lessons">
+            lessons
+          </NavLink>
+          <NavLink activeClassName={classes.active} to="/lesson">
+            lesson
+          </NavLink>
+          <NavLink activeClassName={classes.active} to="/login">
+            login
+          </NavLink>
         </div>
       </div>
     </nav>
