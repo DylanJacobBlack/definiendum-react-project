@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import classes from "./Lessons.module.css";
-import Lesson from "../components/Lessons/Lesson";
+import LessonCard from "../components/Lessons/LessonCard";
 
 const Lessons = () => {
   const [lessons, setLessons] = useState([]);
@@ -18,7 +18,7 @@ const Lessons = () => {
 
   return (
     <div className={classes.lessons}>
-      {lessons.map(lesson => <Lesson title={lesson.title}/>)}
+      {lessons.map(lesson => <LessonCard title={lesson.title}/>)}
     </div>
   );
 };

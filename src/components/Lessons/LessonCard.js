@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import classes from "./Lesson.module.css";
+import classes from "./LessonCard.module.css";
 import dummyPic from "./card-left.jpg";
 import Card from "../UI/Card";
 
