@@ -31,16 +31,16 @@
 .links {
   display: flex;
   justify-content: space-evenly;
-  font-family: "Ubuntu", sans-serif;
-  color: rgb(207, 207, 207);
 }
 
 .links a:link {
+  font-family: "Ubuntu", sans-serif;
   font-size: large;
   margin: auto;
   margin-left: 1rem;
   margin-right: 1rem;
   text-decoration: none;
+  color: rgb(207, 207, 207);
 }
 
 .links a:visited {
