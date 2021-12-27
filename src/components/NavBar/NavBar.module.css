@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu:wght@500&display=swap");
 
 * {
   box-sizing: border-box;
@@ -21,7 +21,7 @@
 
 .logo-text {
   font-family: "Righteous", cursive;
-  color: rgb(255, 255, 255);
+  color: rgb(207, 207, 207);
   display: flex;
   justify-content: space-between;
   width: 210px;
@@ -31,21 +31,34 @@
 .links {
   display: flex;
   justify-content: space-evenly;
-  font-family: 'Ubuntu', sans-serif;
-  color: rgb(255, 255, 255);
+  font-family: "Ubuntu", sans-serif;
+  color: rgb(207, 207, 207);
 }
 
-a:link {
+.links a:link {
   font-size: large;
   margin: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   text-decoration: none;
 }
 
-a:visited {
+.links a:visited {
   text-decoration: none;
+  color: rgb(207, 207, 207);
+}
+
+.links a:hover,
+.links a:active {
+  padding-bottom: 0.2rem;
   color: rgb(255, 255, 255);
+}
+
+.links a.active
+ {
+  padding-bottom: 0.2rem;
+  color: rgb(255, 255, 255);
+  border-bottom: 1px solid whitesmoke;
 }
 
 .grower {

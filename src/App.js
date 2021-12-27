@@ -13,7 +13,7 @@ function App() {
       <Route path="/lessons">
         <Lessons />
       </Route>
-      <Route path="/lesson">
+      <Route path="/lesson/:lessonId">
         <Lesson />
       </Route>
     </Fragment>
