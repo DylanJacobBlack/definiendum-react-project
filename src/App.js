@@ -9,6 +9,24 @@ import NewLesson from "./pages/NewLesson";
 import Login from "./pages/Login";
 
 function App() {
+  async function addLessonHandler(enteredTitle, enteredText) {
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/lessons", {
+        method: "POST",
+        body: JSON.stringify({
+          title: enteredTitle,
+          text: enteredText,
+          user_id: 1,
+          language_id: 1,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Fragment>
       <NavBar />
@@ -20,7 +38,7 @@ function App() {
           <Lesson />
         </Route>
         <Route path="/new">
-          <NewLesson />
+          <NewLesson onAddLesson={addLessonHandler} />
         </Route>
         <Route path="/login">
           <Login />
