@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory} from "react-router-dom";
 import "./App.module.css";
 
 import NavBar from "./components/NavBar/NavBar";
@@ -9,6 +9,8 @@ import NewLesson from "./pages/NewLesson";
 import Login from "./pages/Login";
 
 function App() {
+  const history = useHistory();
+
   async function addLessonHandler(enteredTitle, enteredText) {
     try {
       const response = await fetch("http://localhost:3000/api/v1/lessons", {
@@ -21,10 +23,11 @@ function App() {
         }),
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
+      console.log("REPONSE!!" + response);
     } catch (error) {
       console.log(error);
     }
+    history.push("/lessons");
   }
 
   return (
