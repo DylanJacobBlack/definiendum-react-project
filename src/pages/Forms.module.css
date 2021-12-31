@@ -39,6 +39,16 @@
 .control textarea {
   resize: none;
   width: 40rem;
-  height: 14rem;
+  height: 10rem;
   scroll-behavior: auto;
+}
+
+.invalid {
+  background-color: rgb(253, 207, 207) !important;
+}
+
+.warning {
+  text-align: center;
+  margin: 1rem;
+  color: red;
 }
