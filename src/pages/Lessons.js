@@ -49,7 +49,7 @@ const Lessons = () => {
       {status !== "" && <h1>{status}</h1>}
       {!isLoading &&
         lessons.length > 0 &&
-        lessons.map((lesson) => <LessonCard title={lesson.title} />)}
+        lessons.map((lesson) => <LessonCard id={lesson.id} title={lesson.title} text={lesson.text} />)}
     </div>
   );
 };

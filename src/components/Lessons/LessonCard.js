@@ -5,6 +5,13 @@ import dummyPic from "./card-left.jpg";
 import Card from "../UI/Card";
 
 const Lesson = (props) => {
+  const truncate = () => {
+    if (props.text?.length > 150) {
+    return `${props.text.substr(0, props.text.lastIndexOf(' ', 150))} ...`;
+    }
+    return props.text
+  };
+
   return (
     <Card className={classes.lesson}>
       <Link to="/lessons/test">
@@ -12,11 +19,7 @@ const Lesson = (props) => {
       </Link>
       <div className={classes.info}>
         <h2>{props.title}</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-          quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-          nihil.
-        </p>
+        <p>{truncate(props.text)}</p>
       </div>
     </Card>
   );

@@ -1,3 +1,5 @@
+
+
 import classes from "./LessonDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -5,7 +7,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const LessonDisplay = () => {
+const LessonDisplay = (params) => {
   return (
     <div className={classes.lesson}>
       <button className={classes.button}>
