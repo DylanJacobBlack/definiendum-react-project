@@ -9,28 +9,26 @@ const Lessons = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchLessonData() {
+    async function fetchLessonsData() {
       try {
         setIsLoading(true);
         setError(null);
-        console.log("Loading!");
         const response = await fetch("http://localhost:3000/api/v1/lessons");
 
         if (!response.ok) {
           throw new Error("Something went wrong.");
         }
         const data = await response.json();
-        setLessons(data);
-        console.log("Done loading!");
+        setLessons(data.lessons);
       } catch (error) {
         setError(error.message);
       }
       setIsLoading(false);
     }
-    fetchLessonData();
+    fetchLessonsData();
   }, []);
 
-  let status = "No lesson found.";
+  let status = "No lessons found.";
 
   if (lessons.length > 0) {
     status = "";
@@ -49,7 +47,14 @@ const Lessons = () => {
       {status !== "" && <h1>{status}</h1>}
       {!isLoading &&
         lessons.length > 0 &&
-        lessons.map((lesson) => <LessonCard id={lesson.id} title={lesson.title} text={lesson.text} />)}
+        lessons.map((lesson) => (
+          <LessonCard
+            key={lesson.id}
+            id={lesson.id}
+            title={lesson.title}
+            text={lesson.text}
+          />
+        ))}
     </div>
   );
 };

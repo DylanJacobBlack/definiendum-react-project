@@ -15,11 +15,12 @@
 
 .lesson h2 {
   font-family: "Ubuntu", sans-serif;
+  color: black !important;
 }
 
 .lesson p {
   font-family: "Ubuntu", sans-serif;
-  color: rgb(73, 73, 73);
+  color: rgb(73, 73, 73) !important;
   padding: .5rem;
 }
 

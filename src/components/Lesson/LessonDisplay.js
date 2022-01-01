@@ -7,13 +7,19 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const LessonDisplay = (params) => {
+const LessonDisplay = (props) => {
+  // const pages = props.text.split('.').map((page)=>{
+  //   return (<div className={classes.page}>
+
+  //   </div>)
+  // });
+
   return (
     <div className={classes.lesson}>
       <button className={classes.button}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
-      <div className={classes.page}>Lesson text goes here.</div>
+      <div className={classes.page}>{props.text}</div>
       <button className={classes.button}>
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
