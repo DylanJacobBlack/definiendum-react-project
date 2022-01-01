@@ -7,7 +7,7 @@ import LessonDisplay from "../components/Lesson/LessonDisplay";
 
 const Lesson = () => {
   const params = useParams();
-  const [lesson, setLesson] = useState([]);
+  const [lesson, setLesson] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -16,7 +16,9 @@ const Lesson = () => {
       try {
         setIsLoading(true);
         setError(null);
-        const response = await fetch(`http://localhost:3000/api/v1/lessons/${params.lessonId}`);
+        const response = await fetch(
+          `http://localhost:3000/api/v1/lessons/${params.lessonId}`
+        );
 
         if (!response.ok) {
           throw new Error("Something went wrong.");
@@ -33,7 +35,7 @@ const Lesson = () => {
 
   let status = "No lesson found.";
 
-  if (lesson.nil) {
+  if (lesson !== null) {
     status = "";
   }
 
@@ -47,8 +49,17 @@ const Lesson = () => {
 
   return (
     <div className={classes.lesson}>
-      <SideBar title={lesson.title} status={status} />
-      <LessonDisplay text={lesson.text} status={status} />
+      {status !== "" && <h1>{status}</h1>}
+      {!isLoading && status === "" && (
+        <SideBar title={lesson.title} isLoading={isLoading} status={status} />
+      )}
+      {!isLoading && status === "" && (
+        <LessonDisplay
+          text={lesson.text}
+          isLoading={isLoading}
+          status={status}
+        />
+      )}
     </div>
   );
 };

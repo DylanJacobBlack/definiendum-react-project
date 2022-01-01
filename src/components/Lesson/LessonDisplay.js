@@ -1,4 +1,4 @@
-
+import { useState, useEffect } from "react";
 
 import classes from "./LessonDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,19 +8,37 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const LessonDisplay = (props) => {
-  // const pages = props.text.split('.').map((page)=>{
-  //   return (<div className={classes.page}>
+  const [lessonPages, setLessonPages] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
 
-  //   </div>)
-  // });
+  useEffect(() => {
+    if (props.isLoading === false && props.status === "") {
+      setLessonPages(props.text.split("."));
+    }
+  }, [props.text, props.isLoading, props.status]);
+
+  const pageBackHandler = (event) => {
+    console.log("hello")
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
+  };
+
+  const pageForwardHandler = (event) => {
+    console.log("hello");
+    if (currentPage < lessonPages.length -1 ) setCurrentPage(currentPage + 1);
+  };
 
   return (
     <div className={classes.lesson}>
-      <button className={classes.button}>
+      <button className={classes.button} onClick={pageBackHandler}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
-      <div className={classes.page}>{props.text}</div>
-      <button className={classes.button}>
+      <div className={classes.page}>
+        {!props.isLoading &&
+          props.status === "" &&
+          lessonPages !== null &&
+          lessonPages[currentPage]}
+      </div>
+      <button className={classes.button} onClick={pageForwardHandler}>
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
     </div>
