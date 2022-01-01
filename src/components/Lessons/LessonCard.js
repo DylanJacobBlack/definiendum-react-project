@@ -7,20 +7,22 @@ import Card from "../UI/Card";
 const Lesson = (props) => {
   const truncate = () => {
     if (props.text?.length > 150) {
-    return `${props.text.substr(0, props.text.lastIndexOf(' ', 150))} ...`;
+    return `${props.text.substr(0, props.text.lastIndexOf(' ', 150))}...`;
     }
     return props.text
   };
 
   return (
     <Card className={classes.lesson}>
-      <Link to="/lessons/test">
+      <Link to={`/lessons/${props.id}`}>
         <img src={dummyPic} alt="dummy-pic" />
       </Link>
-      <div className={classes.info}>
-        <h2>{props.title}</h2>
-        <p>{truncate(props.text)}</p>
-      </div>
+      <Link to={`/lessons/${props.id}`}>
+        <div className={classes.info}>
+          <h2>{props.title}</h2>
+          <p>{truncate(props.text)}</p>
+        </div>
+      </Link>
     </Card>
   );
 };
