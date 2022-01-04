@@ -7,6 +7,7 @@ import Lessons from "./pages/Lessons";
 import Lesson from "./pages/Lesson";
 import NewLesson from "./pages/NewLesson";
 import Login from "./pages/Login";
+import Canvas from "./pages/Canvas";
 
 function App() {
   const history = useHistory();
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/test">
+          <Canvas />
         </Route>
       </Switch>
     </Fragment>
