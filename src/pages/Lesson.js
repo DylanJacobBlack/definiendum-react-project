@@ -51,14 +51,14 @@ const Lesson = () => {
     <div className={classes.lesson}>
       {status !== "" && <h1>{status}</h1>}
       {!isLoading && status === "" && (
-        <SideBar title={lesson.title} isLoading={isLoading} status={status} />
-      )}
-      {!isLoading && status === "" && (
         <LessonDisplay
           text={lesson.text}
           isLoading={isLoading}
           status={status}
         />
+      )}
+      {!isLoading && status === "" && (
+        <SideBar title={lesson.title} isLoading={isLoading} status={status} />
       )}
     </div>
   );
