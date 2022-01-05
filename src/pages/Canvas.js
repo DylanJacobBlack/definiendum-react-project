@@ -1,21 +1,19 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import classes from "./Canvas.module.css";
 
 const Canvas = (props) => {
   const canvasRef = useRef();
-  const page1 = useRef();
-  const page2 = useRef();
-  const page3 = useRef();
-  console.log(canvasRef);
-  console.log(page1);
+  const [preparedPages, setPreparedPages] = useState();
+
+  const pageWidth = 400;
+  const pageHeight = 150;
+  const pagePaddingLeft = 10;
+  const pagePaddingRight = 10;
+  const approxWordsPerPage = 500;
+  const lineHeight = 18;
 
   useEffect(() => {
-    const pageWidth = 250;
-    const pageHeight = 150;
-    const pagePaddingLeft = 10;
-    const pagePaddingRight = 10;
-    const approxWordsPerPage = 500;
-    const lineHeight = 18;
+    const pages = [];
     const maxLinesPerPage = parseInt(pageHeight / lineHeight) - 1;
     const x = pagePaddingLeft;
     const y = lineHeight;
@@ -30,11 +28,7 @@ const Canvas = (props) => {
     context.font = "14px verdana";
 
     const getNextWords = (nextWordIndex) => {
-      // Eg: select top 500 word from romeoAndJuliet
-      //     where wordIndex>=nextwordIndex
-      //     order by wordIndex
-      //
-      // But here for testing, we just hardcode the entire text
+      // Testing only
       const testingText =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
       const testingWords = testingText.split(" ");
@@ -60,8 +54,9 @@ const Canvas = (props) => {
     const getLineOfText = (words, maxWidth) => {
       let line = "";
       let space = "";
-      for (var i = 0; i < words.length; i++) {
+      for (let i = 0; i < words.length; i++) {
         let testWidth = context.measureText(line + " " + words[i]).width;
+        // When tested width is greater than the maxwidth, return an index of one less
         if (testWidth > maxWidth) {
           return { index: i - 1, text: line };
         }
@@ -71,79 +66,60 @@ const Canvas = (props) => {
       return { index: words.length - 1, text: line };
     };
 
-    const drawSvg = (lines, x) => {
-      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      const sText = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "text"
-      );
-      sText.setAttributeNS(null, "font-family", "verdana");
-      sText.setAttributeNS(null, "font-size", "14px");
-      sText.setAttributeNS(null, "fill", "#000000");
-      for (let i = 0; i < lines.length; i++) {
-        const sTSpan = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "tspan"
+    const drawSvg = (lines, x, i) => {
+      const tspans = [];
+      for (let l = 0; l < lines.length; l++) {
+        const tspan = (
+          <tspan key={`page${i}-line${l}`} x={x} dy={`${lineHeight}px`}>
+            {lines[l].text}
+          </tspan>
         );
-        sTSpan.setAttributeNS(null, "x", x);
-        sTSpan.setAttributeNS(null, "dy", lineHeight + "px");
-        sTSpan.appendChild(document.createTextNode(lines[i].text));
-        sText.appendChild(sTSpan);
+        tspans.push(tspan);
       }
-      svg.appendChild(sText);
-      console.log(page);
-      page.current.append(svg);
+      const sText = (
+        <text fontFamily="verdana" fontSize="14px" fill="#000000">
+          {tspans}
+        </text>
+      );
+
+      return (
+        <div
+          className={classes.page}
+          style={{ height: pageHeight, width: pageWidth }}
+          key={`page${i}`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height={pageHeight}
+            width={pageWidth}
+          >
+            {sText}
+          </svg>
+        </div>
+      );
     };
 
-    // Test: Page#1
+    for (let i = 0; i < 5; i++) {
+      console.log(`round ${i}`);
+      let lines = textToLines(
+        getNextWords(wordCount),
+        maxWidth,
+        maxLinesPerPage,
+        x,
+        y
+      );
+      pages.push(drawSvg(lines, x, i));
+    }
 
-    // get a reference to the page div
-    let page = page1;
-    // use html canvas to word-wrap this page
-    let lines = textToLines(
-      getNextWords(wordCount),
-      maxWidth,
-      maxLinesPerPage,
-      x,
-      y
-    );
-    // create svg elements for each line of text on the page
-    drawSvg(lines, x);
-
-    // Test: Page#2 (just testing...normally there's only 1 full-screen page)
-    page = page2;
-    lines = textToLines(
-      getNextWords(wordCount),
-      maxWidth,
-      maxLinesPerPage,
-      x,
-      y
-    );
-    drawSvg(lines, x);
-
-    // Test: Page#3 (just testing...normally there's only 1 full-screen page)
-    page = page3;
-    lines = textToLines(
-      getNextWords(wordCount),
-      maxWidth,
-      maxLinesPerPage,
-      x,
-      y
-    );
-    drawSvg(lines, x);
+    setPreparedPages(pages);
   }, []);
 
   return (
     <div>
-      <canvas ref={canvasRef} />
-      <h4>Page 1</h4>
-      <div ref={page1} class={classes.page}></div>
-      <h4>Page 2</h4>
-      <div ref={page2} class={classes.page}></div>
-      <h4>Page 3</h4>
-      <div ref={page3} class={classes.page}></div>
+      <canvas ref={canvasRef} className={classes.canvas} />
+      {preparedPages}
     </div>
   );
 };
 
-export default Canvas;
+export default React.memo(Canvas);
