@@ -1,31 +1,23 @@
 import React, { useRef, useEffect, useState } from "react";
+import classes from "./Canvas.module.css";
 
-import classes from "./LessonDisplay.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-
-const LessonDisplay = (props) => {
-  const [lessonPages, setLessonPages] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0);
+const Canvas = (props) => {
   const canvasRef = useRef();
+  const [preparedPages, setPreparedPages] = useState();
 
-  const columnWidth = 400;
-  const columnHeight = 150;
+  const pageWidth = 400;
+  const pageHeight = 150;
   const pagePaddingLeft = 10;
   const pagePaddingRight = 10;
   const approxWordsPerPage = 500;
   const lineHeight = 18;
 
   useEffect(() => {
-    if (props.isLoading === false && props.status === "") {
     const pages = [];
-    const maxLinesPerPage = parseInt(columnHeight / lineHeight) - 1;
+    const maxLinesPerPage = parseInt(pageHeight / lineHeight) - 1;
     const x = pagePaddingLeft;
     const y = lineHeight;
-    const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
+    const maxWidth = pageWidth - pagePaddingLeft - pagePaddingRight;
 
     // # words that have been displayed
     //(used when ordering a new page of words)
@@ -36,9 +28,13 @@ const LessonDisplay = (props) => {
     context.font = "14px verdana";
 
     const getNextWords = (nextWordIndex) => {
-      const textWords = props.text.split(" ");
-      const words = textWords.splice(nextWordIndex, approxWordsPerPage);
+      // Testing only
+      const testingText =
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+      const testingWords = testingText.split(" ");
+      const words = testingWords.splice(nextWordIndex, approxWordsPerPage);
 
+      //
       return words;
     };
 
@@ -88,14 +84,14 @@ const LessonDisplay = (props) => {
 
       return (
         <div
-          className={classes.column}
-          style={{ height: columnHeight, width: columnWidth }}
+          className={classes.page}
+          style={{ height: pageHeight, width: pageWidth }}
           key={`page${i}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            height={columnHeight}
-            width={columnWidth}
+            height={pageHeight}
+            width={pageWidth}
           >
             {sText}
           </svg>
@@ -115,37 +111,15 @@ const LessonDisplay = (props) => {
       pages.push(drawSvg(lines, x, i));
     }
 
-    setLessonPages(pages);
-    }
-  }, [props.text, props.isLoading, props.status]);
-
-  const pageBackHandler = (event) => {
-    console.log("hello")
-    if (currentPage > 0) setCurrentPage(currentPage - 1);
-  };
-
-  const pageForwardHandler = (event) => {
-    console.log("hello");
-    if (currentPage < lessonPages.length -1 ) setCurrentPage(currentPage + 1);
-  };
+    setPreparedPages(pages);
+  }, []);
 
   return (
-    <div className={classes.lesson}>
+    <div>
       <canvas ref={canvasRef} className={classes.canvas} />
-      <button className={classes.button} onClick={pageBackHandler}>
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </button>
-      <div className={classes.page}>
-        {!props.isLoading &&
-          props.status === "" &&
-          lessonPages !== null &&
-          lessonPages[currentPage]}
-      </div>
-      <button className={classes.button} onClick={pageForwardHandler}>
-        <FontAwesomeIcon icon={faChevronRight} />
-      </button>
+      {preparedPages}
     </div>
   );
 };
 
-export default React.memo(LessonDisplay);
+export default React.memo(Canvas);

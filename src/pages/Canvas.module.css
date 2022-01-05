@@ -1,0 +1,7 @@
+.canvas {
+  display: none;
+}
+.page {
+  border: 2px solid black;
+  margin: 1rem;
+}
