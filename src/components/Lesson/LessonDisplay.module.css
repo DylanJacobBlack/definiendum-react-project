@@ -33,3 +33,7 @@
   white-space: pre-wrap;
   overflow: hidden;
 }
+
+.canvas {
+  display: none;
+}
