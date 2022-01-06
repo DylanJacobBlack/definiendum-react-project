@@ -11,18 +11,19 @@ const LessonDisplay = (props) => {
   const [lessonPages, setLessonPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const canvasRef = useRef();
+  const pageRef = useRef();
 
-  const columnWidth = 400;
-  const columnHeight = 150;
-  const pagePaddingLeft = 10;
-  const pagePaddingRight = 10;
-  const approxWordsPerPage = 500;
-  const lineHeight = 18;
+  const pagePaddingLeft = 60;
+  const pagePaddingRight = 75;
+  const approxWordsPerPage = 300;
+  const lineHeight = 30;
 
   useEffect(() => {
     if (props.isLoading === false && props.status === "") {
     const pages = [];
-    const maxLinesPerPage = parseInt(columnHeight / lineHeight) - 1;
+    const columnWidth = pageRef.current.clientWidth;
+    const columnHeight = pageRef.current.clientHeight;
+    const maxLinesPerPage = parseInt(columnHeight / lineHeight) - 4;
     const x = pagePaddingLeft;
     const y = lineHeight;
     const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
@@ -33,7 +34,7 @@ const LessonDisplay = (props) => {
 
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    context.font = "14px verdana";
+    context.font = "20px verdana";
 
     const getNextWords = (nextWordIndex) => {
       const textWords = props.text.split(" ");
@@ -81,7 +82,7 @@ const LessonDisplay = (props) => {
         tspans.push(tspan);
       }
       const sText = (
-        <text fontFamily="verdana" fontSize="14px" fill="#000000">
+        <text fontFamily="verdana" fontSize="20px" fill="#000000">
           {tspans}
         </text>
       );
@@ -135,7 +136,7 @@ const LessonDisplay = (props) => {
       <button className={classes.button} onClick={pageBackHandler}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
-      <div className={classes.page}>
+      <div className={classes.page} ref={pageRef}>
         {!props.isLoading &&
           props.status === "" &&
           lessonPages !== null &&
