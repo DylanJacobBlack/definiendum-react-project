@@ -9,9 +9,9 @@ import {
 
 function debounce(fn, ms) {
   let timer;
-  return (_) => {
+  return () => {
     clearTimeout(timer);
-    timer = setTimeout((_) => {
+    timer = setTimeout(() => {
       timer = null;
       fn.apply(this, arguments);
     }, ms);
@@ -25,8 +25,7 @@ const LessonDisplay = (props) => {
   const canvasRef = useRef();
   const pageRef = useRef();
 
-  const [dimensions, setDimensions] = useState({
-  });
+  const [dimensions, setDimensions] = useState({});
 
   const pagePaddingLeft = 60;
   const pagePaddingRight = 75;
@@ -38,7 +37,7 @@ const LessonDisplay = (props) => {
       const pages = [];
       const columnWidth = pageRef.current.clientWidth;
       const columnHeight = pageRef.current.clientHeight;
-      const maxLinesPerPage = parseInt(columnHeight / lineHeight) - 4;
+      const maxLinesPerPage = parseInt(columnHeight / lineHeight) + 10;
       const x = pagePaddingLeft;
       const y = lineHeight;
       const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
@@ -50,18 +49,30 @@ const LessonDisplay = (props) => {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
       context.font = "20px verdana";
-      const textWords = props.text.split(" ");
+      const textPara = [];
+      // Pushing zeros allows the textToLines function to detect page breaks
+      props.text.split("\n").forEach((para) => {
+        if (para) {
+          textPara.push(para);
+          textPara.push(0);
+        } else textPara.push(0);
+      });
+      const textWords = textPara.map((para) => {
+        if (para === 0) return 0
+        else return para.split(" ")
+      }).flat();
+      console.log(textWords);
 
       const getNextWords = (nextWordIndex) => {
         const words = textWords.slice(
           nextWordIndex,
           nextWordIndex + approxWordsPerPage
-          );
+        );
 
-          return words;
-        };
+        return words;
+      };
 
-        const textToLines = (words, maxWidth, maxLines, x, y) => {
+      const textToLines = (words, maxWidth, maxLines, x, y) => {
         const lines = [];
 
         while (words.length > 0 && lines.length <= maxLines) {
@@ -78,6 +89,10 @@ const LessonDisplay = (props) => {
         let line = "";
         let space = "";
         for (let i = 0; i < words.length; i++) {
+          // Check if "word" value is 0. If it is, line break.
+          if (words[i] === 0) {
+            return {index: i, text: line }
+          }
           let testWidth = context.measureText(line + " " + words[i]).width;
           // When tested width is greater than the maxwidth, return an index of one less
           if (testWidth > maxWidth) {
@@ -107,15 +122,15 @@ const LessonDisplay = (props) => {
 
         return (
           <div
-          className={classes.column}
-          style={{ height: columnHeight, width: columnWidth }}
+            className={classes.column}
+            style={{ height: columnHeight, width: columnWidth }}
             key={`page${i}`}
-            >
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height={columnHeight}
               width={columnWidth}
-              >
+            >
               {sText}
             </svg>
           </div>
@@ -130,13 +145,19 @@ const LessonDisplay = (props) => {
           maxLinesPerPage,
           x,
           y
-          );
-          pages.push(drawSvg(lines, x, i));
+        );
+        pages.push(drawSvg(lines, x, i));
       }
 
       setLessonPages(pages);
     }
-  }, [props.text, props.isLoading, props.status, dimensions.height, dimensions.width]);
+  }, [
+    props.text,
+    props.isLoading,
+    props.status,
+    dimensions.height,
+    dimensions.width,
+  ]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -155,7 +176,6 @@ const LessonDisplay = (props) => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [currentPage, lessonPages]);
-
 
   useEffect(() => {
     const debouncedHandleResize = debounce(function handleResize() {
