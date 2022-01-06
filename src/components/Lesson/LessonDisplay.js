@@ -7,127 +7,177 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+function debounce(fn, ms) {
+  let timer;
+  return (_) => {
+    clearTimeout(timer);
+    timer = setTimeout((_) => {
+      timer = null;
+      fn.apply(this, arguments);
+    }, ms);
+  };
+}
+
 const LessonDisplay = (props) => {
   const [lessonPages, setLessonPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
+
   const canvasRef = useRef();
   const pageRef = useRef();
 
+  const [dimensions, setDimensions] = useState({
+  });
+
   const pagePaddingLeft = 60;
   const pagePaddingRight = 75;
-  const approxWordsPerPage = 300;
+  const approxWordsPerPage = 500;
   const lineHeight = 30;
 
   useEffect(() => {
     if (props.isLoading === false && props.status === "") {
-    const pages = [];
-    const columnWidth = pageRef.current.clientWidth;
-    const columnHeight = pageRef.current.clientHeight;
-    const maxLinesPerPage = parseInt(columnHeight / lineHeight) - 4;
-    const x = pagePaddingLeft;
-    const y = lineHeight;
-    const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
+      const pages = [];
+      const columnWidth = pageRef.current.clientWidth;
+      const columnHeight = pageRef.current.clientHeight;
+      const maxLinesPerPage = parseInt(columnHeight / lineHeight) - 4;
+      const x = pagePaddingLeft;
+      const y = lineHeight;
+      const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
 
-    // # words that have been displayed
-    //(used when ordering a new page of words)
-    let wordCount = 0;
+      // # words that have been displayed
+      //(used when ordering a new page of words)
+      let wordCount = 0;
 
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    context.font = "20px verdana";
-
-    const getNextWords = (nextWordIndex) => {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      context.font = "20px verdana";
       const textWords = props.text.split(" ");
-      const words = textWords.splice(nextWordIndex, approxWordsPerPage);
 
-      return words;
-    };
+      const getNextWords = (nextWordIndex) => {
+        const words = textWords.slice(
+          nextWordIndex,
+          nextWordIndex + approxWordsPerPage
+          );
 
-    const textToLines = (words, maxWidth, maxLines, x, y) => {
-      const lines = [];
+          return words;
+        };
 
-      while (words.length > 0 && lines.length <= maxLines) {
-        let line = getLineOfText(words, maxWidth);
-        words = words.splice(line.index + 1);
-        lines.push(line);
-        wordCount += line.index + 1;
-      }
+        const textToLines = (words, maxWidth, maxLines, x, y) => {
+        const lines = [];
 
-      return lines;
-    };
-
-    const getLineOfText = (words, maxWidth) => {
-      let line = "";
-      let space = "";
-      for (let i = 0; i < words.length; i++) {
-        let testWidth = context.measureText(line + " " + words[i]).width;
-        // When tested width is greater than the maxwidth, return an index of one less
-        if (testWidth > maxWidth) {
-          return { index: i - 1, text: line };
+        while (words.length > 0 && lines.length <= maxLines) {
+          let line = getLineOfText(words, maxWidth);
+          words = words.splice(line.index + 1);
+          lines.push(line);
+          wordCount += line.index + 1;
         }
-        line += space + words[i];
-        space = " ";
-      }
-      return { index: words.length - 1, text: line };
-    };
 
-    const drawSvg = (lines, x, i) => {
-      const tspans = [];
-      for (let l = 0; l < lines.length; l++) {
-        const tspan = (
-          <tspan key={`page${i}-line${l}`} x={x} dy={`${lineHeight}px`}>
-            {lines[l].text}
-          </tspan>
+        return lines;
+      };
+
+      const getLineOfText = (words, maxWidth) => {
+        let line = "";
+        let space = "";
+        for (let i = 0; i < words.length; i++) {
+          let testWidth = context.measureText(line + " " + words[i]).width;
+          // When tested width is greater than the maxwidth, return an index of one less
+          if (testWidth > maxWidth) {
+            return { index: i - 1, text: line };
+          }
+          line += space + words[i];
+          space = " ";
+        }
+        return { index: words.length - 1, text: line };
+      };
+
+      const drawSvg = (lines, x, i) => {
+        const tspans = [];
+        for (let l = 0; l < lines.length; l++) {
+          const tspan = (
+            <tspan key={`page${i}-line${l}`} x={x} dy={`${lineHeight}px`}>
+              {lines[l].text}
+            </tspan>
+          );
+          tspans.push(tspan);
+        }
+        const sText = (
+          <text fontFamily="verdana" fontSize="20px" fill="#000000">
+            {tspans}
+          </text>
         );
-        tspans.push(tspan);
-      }
-      const sText = (
-        <text fontFamily="verdana" fontSize="20px" fill="#000000">
-          {tspans}
-        </text>
-      );
 
-      return (
-        <div
+        return (
+          <div
           className={classes.column}
           style={{ height: columnHeight, width: columnWidth }}
-          key={`page${i}`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height={columnHeight}
-            width={columnWidth}
-          >
-            {sText}
-          </svg>
-        </div>
-      );
+            key={`page${i}`}
+            >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height={columnHeight}
+              width={columnWidth}
+              >
+              {sText}
+            </svg>
+          </div>
+        );
+      };
+
+      for (let i = 0; wordCount !== textWords.length; i++) {
+        console.log(wordCount, textWords.length);
+        let lines = textToLines(
+          getNextWords(wordCount),
+          maxWidth,
+          maxLinesPerPage,
+          x,
+          y
+          );
+          pages.push(drawSvg(lines, x, i));
+      }
+
+      setLessonPages(pages);
+    }
+  }, [props.text, props.isLoading, props.status, dimensions.height, dimensions.width]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      console.log("A key was pressed", event.code);
+      if (event.code === "ArrowLeft" && currentPage > 0) {
+        setCurrentPage(currentPage - 1);
+      }
+      if (event.code === "ArrowRight" && currentPage < lessonPages.length - 1) {
+        setCurrentPage(currentPage + 1);
+      }
     };
 
-    for (let i = 0; i < 5; i++) {
-      console.log(`round ${i}`);
-      let lines = textToLines(
-        getNextWords(wordCount),
-        maxWidth,
-        maxLinesPerPage,
-        x,
-        y
-      );
-      pages.push(drawSvg(lines, x, i));
-    }
+    window.addEventListener("keydown", handleKeyDown);
 
-    setLessonPages(pages);
-    }
-  }, [props.text, props.isLoading, props.status]);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [currentPage, lessonPages]);
+
+
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimensions({
+        height: pageRef.current.clientHeight,
+        width: pageRef.current.clientWidth,
+      });
+    }, 1000);
+
+    window.addEventListener("resize", debouncedHandleResize);
+
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
+    };
+  });
 
   const pageBackHandler = (event) => {
-    console.log("hello")
     if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
   const pageForwardHandler = (event) => {
-    console.log("hello");
-    if (currentPage < lessonPages.length -1 ) setCurrentPage(currentPage + 1);
+    if (currentPage < lessonPages.length - 1) setCurrentPage(currentPage + 1);
   };
 
   return (
