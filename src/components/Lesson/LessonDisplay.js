@@ -30,14 +30,16 @@ const LessonDisplay = (props) => {
   const pagePaddingLeft = 60;
   const pagePaddingRight = 75;
   const approxWordsPerPage = 500;
-  const lineHeight = 30;
+  const lineHeight = 25;
 
   useEffect(() => {
     if (props.isLoading === false && props.status === "") {
       const pages = [];
       const columnWidth = pageRef.current.clientWidth;
       const columnHeight = pageRef.current.clientHeight;
-      const maxLinesPerPage = parseInt(columnHeight / lineHeight) + 10;
+      console.log(columnHeight);
+      console.log(lineHeight);
+      const maxLinesPerPage = parseInt((columnHeight + (1.01 ** columnHeight)) / (lineHeight));
       const x = pagePaddingLeft;
       const y = lineHeight;
       const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
@@ -61,7 +63,6 @@ const LessonDisplay = (props) => {
         if (para === 0) return 0
         else return para.split(" ")
       }).flat();
-      console.log(textWords);
 
       const getNextWords = (nextWordIndex) => {
         const words = textWords.slice(
@@ -138,7 +139,6 @@ const LessonDisplay = (props) => {
       };
 
       for (let i = 0; wordCount !== textWords.length; i++) {
-        console.log(wordCount, textWords.length);
         let lines = textToLines(
           getNextWords(wordCount),
           maxWidth,
@@ -161,7 +161,6 @@ const LessonDisplay = (props) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      console.log("A key was pressed", event.code);
       if (event.code === "ArrowLeft" && currentPage > 0) {
         setCurrentPage(currentPage - 1);
       }
@@ -183,7 +182,7 @@ const LessonDisplay = (props) => {
         height: pageRef.current.clientHeight,
         width: pageRef.current.clientWidth,
       });
-    }, 1000);
+    }, 100);
 
     window.addEventListener("resize", debouncedHandleResize);
 
