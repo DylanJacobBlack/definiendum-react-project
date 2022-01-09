@@ -1,0 +1,8 @@
+.switch {
+  margin: 1rem;
+  padding: .3rem;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  font-weight: bold;
+}
