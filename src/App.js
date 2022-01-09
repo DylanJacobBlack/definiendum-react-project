@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Route, Switch, useHistory} from "react-router-dom";
 import "./App.module.css";
 
@@ -7,7 +6,7 @@ import Lessons from "./pages/Lessons";
 import Lesson from "./pages/Lesson";
 import NewLesson from "./pages/NewLesson";
 import Login from "./pages/Login";
-import Canvas from "./pages/Canvas";
+import { AuthContextProvider } from "./store/auth-context"
 
 function App() {
   const history = useHistory();
@@ -32,7 +31,7 @@ function App() {
   }
 
   return (
-    <Fragment>
+    <AuthContextProvider>
       <NavBar />
       <Switch>
         <Route path="/lessons" exact>
@@ -47,11 +46,8 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/test">
-          <Canvas />
-        </Route>
       </Switch>
-    </Fragment>
+    </AuthContextProvider>
   );
 }
 
