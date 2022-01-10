@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 
+import AuthContext from "../store/auth-context";
 import classes from "./Lessons.module.css";
 import LessonCard from "../components/Lessons/LessonCard";
 
@@ -8,25 +10,31 @@ const Lessons = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function fetchLessonsData() {
-      try {
-        setIsLoading(true);
-        setError(null);
-        const response = await fetch("http://localhost:3000/api/v1/lessons");
+  const history = useHistory();
 
-        if (!response.ok) {
-          throw new Error("Something went wrong.");
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      (async function () {
+        try {
+          setIsLoading(true);
+          setError(null);
+          const response = await fetch("http://localhost:3000/api/v1/lessons");
+
+          if (!response.ok) {
+            throw new Error("Something went wrong.");
+          }
+          const data = await response.json();
+          setLessons(data.lessons);
+        } catch (error) {
+          setError(error.message);
         }
-        const data = await response.json();
-        setLessons(data.lessons);
-      } catch (error) {
-        setError(error.message);
-      }
-      setIsLoading(false);
+        setIsLoading(false);
+      })();
     }
-    fetchLessonsData();
-  }, []);
+  }, [isLoggedIn]);
 
   let status = "No lessons found.";
 
@@ -40,6 +48,13 @@ const Lessons = () => {
 
   if (isLoading) {
     status = "Lessons loading...";
+  }
+
+  if (!isLoggedIn) {
+    status = "You must be logged in to view this page.";
+    setInterval(() => {
+      history.replace("./login");
+    }, 1500);
   }
 
   return (
