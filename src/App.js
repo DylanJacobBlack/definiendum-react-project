@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Lessons from "./pages/Lessons";
 import Lesson from "./pages/Lesson";
 import NewLesson from "./pages/NewLesson";
+import Profile from "./pages/Profile"
 import Login from "./pages/Login";
 import { AuthContextProvider } from "./store/auth-context"
 
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/login">
+          <Profile />
         </Route>
       </Switch>
     </AuthContextProvider>

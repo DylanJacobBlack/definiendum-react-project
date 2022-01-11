@@ -32,7 +32,7 @@ const NavBar = () => {
             </NavLink>
           )}
           {isLoggedIn && (
-            <NavLink activeClassName={classes.active} to="/">
+            <NavLink activeClassName={classes.active} to="/profile">
               profile
             </NavLink>
           )}
