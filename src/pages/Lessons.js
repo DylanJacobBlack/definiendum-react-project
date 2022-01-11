@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
 
 import AuthContext from "../store/auth-context";
 import classes from "./Lessons.module.css";
@@ -9,8 +8,6 @@ const Lessons = () => {
   const [lessons, setLessons] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const history = useHistory();
 
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
@@ -48,13 +45,6 @@ const Lessons = () => {
 
   if (isLoading) {
     status = "Lessons loading...";
-  }
-
-  if (!isLoggedIn) {
-    status = "You must be logged in to view this page.";
-    setInterval(() => {
-      history.replace("./login");
-    }, 1500);
   }
 
   return (

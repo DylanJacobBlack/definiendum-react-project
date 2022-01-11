@@ -1,16 +1,21 @@
-import { Route, Switch, useHistory} from "react-router-dom";
+import { Route, Switch, useHistory, Redirect } from "react-router-dom";
+import { useContext, Fragment } from "react";
 import "./App.module.css";
 
 import NavBar from "./components/NavBar/NavBar";
 import Lessons from "./pages/Lessons";
 import Lesson from "./pages/Lesson";
 import NewLesson from "./pages/NewLesson";
-import Profile from "./pages/Profile"
+import Profile from "./pages/Profile";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
-import { AuthContextProvider } from "./store/auth-context"
+import AuthContext from "./store/auth-context";
 
 function App() {
   const history = useHistory();
+  const authCtx = useContext(AuthContext);
+
+  const isLoggedIn = authCtx.isLoggedIn;
 
   async function addLessonHandler(enteredTitle, enteredText) {
     try {
@@ -32,26 +37,42 @@ function App() {
   }
 
   return (
-    <AuthContextProvider>
+    <Fragment>
       <NavBar />
       <Switch>
-        <Route path="/lessons" exact>
-          <Lessons />
+        {isLoggedIn && (
+          <Route path="/lessons" exact>
+            <Lessons />
+          </Route>
+        )}
+        {isLoggedIn && (
+          <Route path="/lessons/:lessonId">
+            <Lesson />
+          </Route>
+        )}
+        {isLoggedIn && (
+          <Route path="/new">
+            <NewLesson onAddLesson={addLessonHandler} />
+          </Route>
+        )}
+        {isLoggedIn && (
+          <Route path="/profile">
+            <Profile />
+          </Route>
+        )}
+        {!isLoggedIn && (
+          <Route path="/login">
+            <Login />
+          </Route>
+        )}
+        <Route path="/">
+          <Home />
         </Route>
-        <Route path="/lessons/:lessonId">
-          <Lesson />
-        </Route>
-        <Route path="/new">
-          <NewLesson onAddLesson={addLessonHandler} />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/login">
-          <Profile />
+        <Route path="/*">
+          <Redirect to="/" />
         </Route>
       </Switch>
-    </AuthContextProvider>
+    </Fragment>
   );
 }
 
