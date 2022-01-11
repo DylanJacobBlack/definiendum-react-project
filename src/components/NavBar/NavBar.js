@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useContext } from "react";
 
 import AuthContext from "../../store/auth-context";
@@ -9,6 +9,10 @@ import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 const NavBar = () => {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
+
+  const logoutHandler = () => {
+    authCtx.logout();
+  };
 
   return (
     <nav className={classes["nav-backdrop"]}>
@@ -31,18 +35,25 @@ const NavBar = () => {
               new lesson
             </NavLink>
           )}
+          <NavLink activeClassName={classes.active} to="/home">
+            home
+          </NavLink>
           {isLoggedIn && (
-            <NavLink activeClassName={classes.active} to="/">
+            <NavLink activeClassName={classes.active} to="/profile">
               profile
             </NavLink>
           )}
-          {!isLoggedIn && (
-            <NavLink activeClassName={classes.active} to="/login">
-              login
-            </NavLink>
-          )}
-          {isLoggedIn && <button>logout</button>}
         </div>
+        {!isLoggedIn && (
+          <Link to="/login">
+            <button className={classes.login}>login</button>
+          </Link>
+        )}
+        {isLoggedIn && (
+          <button className={classes.active} onClick={logoutHandler}>
+            logout
+          </button>
+        )}
       </div>
     </nav>
   );

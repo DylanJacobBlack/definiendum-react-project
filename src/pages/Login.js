@@ -1,5 +1,4 @@
 import { useState, useRef, useContext } from "react";
-import { useHistory } from "react-router-dom";
 
 import AuthContext from "../store/auth-context";
 import Form from "../components/UI/Form";
@@ -7,7 +6,6 @@ import formClasses from "./Forms.module.css";
 import classes from "./Login.module.css";
 
 const Login = () => {
-  const history = useHistory();
   const [createMode, setCreateMode] = useState(false);
   const [isLoading, setIsLoading] = useState()
   const [feedbackMessage, setFeedbackMessage] = useState(null);
@@ -53,15 +51,14 @@ const Login = () => {
           setCreateMode(false);
         } else if (response.ok) {
           const data = await response.json();
-          authCtx.login(data.token);
-          setTimeout(function () {
-            history.replace("./lessons")
-          }, 1500);
+          console.log(`Expiration time from database: ${data.exp}`)
+          const expirationTime = new Date (data.exp)
+          console.log (expirationTime)
+          authCtx.login(data.token, expirationTime);
           setFeedbackMessage("You have logged in.")
         } else {
           setFeedbackMessage("Authentication failed!");
         }
-        console.log(response);
       } catch (error) {
         console.log(error);
         setFeedbackMessage("Problem encountered.");

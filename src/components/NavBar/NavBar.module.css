@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu:wght@500&display=swap");
 
-* {
-  box-sizing: border-box;
-}
-
 .nav-backdrop {
   background-color: rgb(80, 52, 80);
   width: 100vw;
@@ -11,7 +7,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  padding: 1rem;
+  padding: 0.7rem;
 }
 
 .menu {
@@ -53,8 +49,7 @@
   color: rgb(255, 255, 255);
 }
 
-.links a.active
- {
+.links a.active {
   padding-bottom: 0.2rem;
   color: rgb(255, 255, 255);
   border-bottom: 1px solid whitesmoke;
@@ -62,4 +57,20 @@
 
 .grower {
   flex-grow: 1;
+}
+
+button {
+  background-color: rgb(207, 207, 207);
+  border: 1px solid black;
+  padding: 0.7rem;
+  font-family: "Ubuntu", sans-serif;
+  font-size: large;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  color: black;
+}
+
+button:hover,
+button:active {
+  background-color: whitesmoke;
 }
