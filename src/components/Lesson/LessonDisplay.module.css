@@ -13,7 +13,7 @@
   height: 100%;
   border-radius: 1rem;
   font-size: xx-large;
-  flex: 0 0 5rem;
+  flex: 0 0 2rem;
 }
 
 .button:hover {
@@ -36,4 +36,8 @@
 
 .canvas {
   display: none;
+}
+
+.linked-word {
+  cursor: pointer;
 }

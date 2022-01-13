@@ -1,29 +1,41 @@
 .lesson {
   background-color: whitesmoke;
   border: 2px solid black;
-  border-radius: 10px;
-  margin: 20px;
   overflow: hidden;
   display: flex;
+  height: 8.5rem;
 }
 
 .lesson img {
-  height: 15rem;
+  height: 8.5rem;
   background-size: cover;
   vertical-align: bottom;
 }
 
-.lesson h2 {
+h2,
+h3 {
   font-family: "Ubuntu", sans-serif;
   color: black !important;
+  font-size: medium;
 }
 
-.lesson p {
+p {
   font-family: "Ubuntu", sans-serif;
   color: rgb(73, 73, 73) !important;
-  padding: .5rem;
+  padding: 0.5rem;
+  font-size: small;
 }
 
 .info {
   padding: 1rem;
+}
+
+@media only screen and (min-width: 1078px) {
+  h2,
+  h3 {
+    font-size: large;
+  }
+  p {
+    font-size: medium;
+  }
 }

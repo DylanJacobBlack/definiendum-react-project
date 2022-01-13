@@ -4,7 +4,7 @@ import classes from "./LessonDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faChevronRight,
+  faChevronRight
 } from "@fortawesome/free-solid-svg-icons";
 
 function debounce(fn, ms) {
@@ -32,14 +32,18 @@ const LessonDisplay = (props) => {
   const approxWordsPerPage = 500;
   const lineHeight = 25;
 
+  const wordHandler = () => {
+    console.log("Click!");
+  };
+
   useEffect(() => {
     if (props.isLoading === false && props.status === "") {
       const pages = [];
       const columnWidth = pageRef.current.clientWidth;
       const columnHeight = pageRef.current.clientHeight;
-      console.log(columnHeight);
-      console.log(lineHeight);
-      const maxLinesPerPage = parseInt((columnHeight + (1.01 ** columnHeight)) / (lineHeight));
+      const maxLinesPerPage = parseInt(
+        (columnHeight + 1.01 ** columnHeight) / lineHeight
+      );
       const x = pagePaddingLeft;
       const y = lineHeight;
       const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
@@ -59,10 +63,12 @@ const LessonDisplay = (props) => {
           textPara.push(0);
         } else textPara.push(0);
       });
-      const textWords = textPara.map((para) => {
-        if (para === 0) return 0
-        else return para.split(" ")
-      }).flat();
+      const textWords = textPara
+        .map((para) => {
+          if (para === 0) return 0;
+          else return para.split(" ");
+        })
+        .flat();
 
       const getNextWords = (nextWordIndex) => {
         const words = textWords.slice(
@@ -92,7 +98,7 @@ const LessonDisplay = (props) => {
         for (let i = 0; i < words.length; i++) {
           // Check if "word" value is 0. If it is, line break.
           if (words[i] === 0) {
-            return {index: i, text: line }
+            return { index: i, text: line };
           }
           let testWidth = context.measureText(line + " " + words[i]).width;
           // When tested width is greater than the maxwidth, return an index of one less
@@ -105,16 +111,39 @@ const LessonDisplay = (props) => {
         return { index: words.length - 1, text: line };
       };
 
-      const drawSvg = (lines, x, i) => {
+      const linesToLinks = (lines) => {
+        const linesOfLinks = [];
+        let linkedLine = [];
+        lines.forEach((line) => {
+          line.text.split(" ").forEach((linkedWord) => {
+            linkedLine.push(
+              <tspan
+                className={classes["linked-word"]}
+                onClick={wordHandler}
+              >{`${linkedWord} `}</tspan>
+            );
+          });
+          linesOfLinks.push(linkedLine);
+          linkedLine = [];
+        });
+        return linesOfLinks;
+      };
+
+      const drawSvg = (linesOfLinks, x, i) => {
         const tspans = [];
-        for (let l = 0; l < lines.length; l++) {
+        linesOfLinks.forEach((line, index) => {
           const tspan = (
-            <tspan key={`page${i}-line${l}`} x={x} dy={`${lineHeight}px`}>
-              {lines[l].text}
+            <tspan
+              key={`page${index}-line${line}`}
+              x={x}
+              dy={`${lineHeight}px`}
+            >
+              {line.map((linkedWord) => linkedWord)}
             </tspan>
           );
           tspans.push(tspan);
-        }
+        });
+
         const sText = (
           <text fontFamily="verdana" fontSize="20px" fill="#000000">
             {tspans}
@@ -146,7 +175,8 @@ const LessonDisplay = (props) => {
           x,
           y
         );
-        pages.push(drawSvg(lines, x, i));
+        let linesOfLinks = linesToLinks(lines);
+        pages.push(drawSvg(linesOfLinks, x, i));
       }
 
       setLessonPages(pages);

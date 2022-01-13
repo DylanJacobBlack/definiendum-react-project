@@ -19,7 +19,7 @@ const Lesson = (props) => {
       </Link>
       <Link to={`/lessons/${props.id}`}>
         <div className={classes.info}>
-          <h2>{props.title}</h2>
+          <h3>{props.title}</h3>
           <p>{truncate(props.text)}</p>
         </div>
       </Link>
