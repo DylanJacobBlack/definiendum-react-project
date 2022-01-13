@@ -32,8 +32,8 @@ const LessonDisplay = (props) => {
   const approxWordsPerPage = 500;
   const lineHeight = 25;
 
-  const wordHandler = () => {
-    console.log("Click!");
+  const wordHandler = (event) => {
+    console.log(event.target.textContent);
   };
 
   useEffect(() => {
