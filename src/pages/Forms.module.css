@@ -1,6 +1,7 @@
 .controls {
   display: flex;
   flex-direction: column;
+  width: 65vw;
 }
 
 .controls button {
@@ -10,6 +11,7 @@
   font-weight: bolder;
   font-size: large;
   margin-top: 2rem;
+  max-width: 10rem;
 }
 
 .controls button:hover {
@@ -34,11 +36,11 @@
   padding: 5px;
   border-radius: 5px;
   background-color: rgb(231, 230, 230);
+  max-width: 20rem;
 }
 
 .control textarea {
   resize: none;
-  width: 40rem;
   height: 10rem;
   scroll-behavior: auto;
 }
