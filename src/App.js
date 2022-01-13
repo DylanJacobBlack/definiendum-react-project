@@ -7,7 +7,7 @@ import Lessons from "./pages/Lessons";
 import Lesson from "./pages/Lesson";
 import NewLesson from "./pages/NewLesson";
 import Profile from "./pages/Profile";
-import Home from "./pages/Home";
+import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import AuthContext from "./store/auth-context";
 
@@ -33,45 +33,44 @@ function App() {
     } catch (error) {
       console.log(error);
     }
-    history.push("/lessons");
+    history.push("/");
   }
 
   return (
     <Fragment>
       <NavBar />
-      <Switch>
-        {isLoggedIn && (
-          <Route path="/lessons" exact>
+      {isLoggedIn && (
+        <Switch>
+          <Route path="/" exact>
             <Lessons />
           </Route>
-        )}
-        {isLoggedIn && (
-          <Route path="/lessons/:lessonId">
-            <Lesson />
-          </Route>
-        )}
-        {isLoggedIn && (
           <Route path="/new">
             <NewLesson onAddLesson={addLessonHandler} />
           </Route>
-        )}
-        {isLoggedIn && (
           <Route path="/profile">
             <Profile />
           </Route>
-        )}
-        {!isLoggedIn && (
+          <Route path="/lessons/:lessonId">
+            <Lesson />
+          </Route>
+          <Route path="/*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+      )}
+      {!isLoggedIn && (
+        <Switch>
+          <Route path="/" exact>
+            <Welcome />
+          </Route>
           <Route path="/login">
             <Login />
           </Route>
-        )}
-        <Route path="/">
-          <Home />
-        </Route>
-        <Route path="/*">
-          <Redirect to="/" />
-        </Route>
-      </Switch>
+          <Route path="/*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+      )}
     </Fragment>
   );
 }

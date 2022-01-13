@@ -26,7 +26,7 @@ const NavBar = () => {
         <div className={classes.grower}></div>
         <div className={classes.links}>
           {isLoggedIn && (
-            <NavLink activeClassName={classes.active} to="/lessons">
+            <NavLink activeClassName={classes.active} to="/">
               lessons
             </NavLink>
           )}
@@ -35,9 +35,11 @@ const NavBar = () => {
               new lesson
             </NavLink>
           )}
-          <NavLink activeClassName={classes.active} to="/home">
-            home
-          </NavLink>
+          {!isLoggedIn && (
+            <NavLink activeClassName={classes.active} to="/welcome">
+              welcome
+            </NavLink>
+          )}
           {isLoggedIn && (
             <NavLink activeClassName={classes.active} to="/profile">
               profile

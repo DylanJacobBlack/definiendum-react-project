@@ -7,7 +7,7 @@ import classes from "./Login.module.css";
 
 const Login = () => {
   const [createMode, setCreateMode] = useState(false);
-  const [isLoading, setIsLoading] = useState()
+  const [isLoading, setIsLoading] = useState();
   const [feedbackMessage, setFeedbackMessage] = useState(null);
   const usernameInputRef = useRef();
   const emailInputRef = useRef();
@@ -18,13 +18,23 @@ const Login = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    const enteredData = {
-      authentication: {
-        username: usernameInputRef.current?.value,
-        email: emailInputRef.current.value,
-        password: passwordInputRef.current.value,
-      },
-    };
+    let enteredData;
+    if (createMode) {
+      enteredData = {
+        user: {
+          username: usernameInputRef.current.value,
+          email: emailInputRef.current.value,
+          password: passwordInputRef.current.value,
+        },
+      };
+    } else {
+      enteredData = {
+        authentication: {
+          email: emailInputRef.current.value,
+          password: passwordInputRef.current.value,
+        },
+      };
+    }
 
     // Add validation
 
@@ -51,11 +61,8 @@ const Login = () => {
           setCreateMode(false);
         } else if (response.ok) {
           const data = await response.json();
-          console.log(`Expiration time from database: ${data.exp}`)
-          const expirationTime = new Date (data.exp)
-          console.log (expirationTime)
+          const expirationTime = new Date(data.exp);
           authCtx.login(data.token, expirationTime);
-          setFeedbackMessage("You have logged in.")
         } else {
           setFeedbackMessage("Authentication failed!");
         }
