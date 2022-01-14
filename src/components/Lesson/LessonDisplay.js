@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 
 import classes from "./LessonDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faChevronRight
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function debounce(fn, ms) {
@@ -21,6 +21,9 @@ function debounce(fn, ms) {
 const LessonDisplay = (props) => {
   const [lessonPages, setLessonPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [modalSwitch, setModalSwitch] = useState(false);
+
+  const translationRef = useRef();
 
   const canvasRef = useRef();
   const pageRef = useRef();
@@ -32,9 +35,21 @@ const LessonDisplay = (props) => {
   const approxWordsPerPage = 500;
   const lineHeight = 25;
 
-  const wordHandler = (event) => {
-    console.log(event.target.textContent);
-  };
+  const wordHandler = useCallback((event) => {
+    (async function () {
+      const response = await fetch("http://localhost:3000/word", {
+        method: "POST",
+        body: JSON.stringify({
+          text: event.target.textContent,
+          language: "la",
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
+      translationRef.current = data.translation;
+      setModalSwitch(true);
+    })();
+  }, []);
 
   useEffect(() => {
     if (props.isLoading === false && props.status === "") {
@@ -187,6 +202,7 @@ const LessonDisplay = (props) => {
     props.status,
     dimensions.height,
     dimensions.width,
+    wordHandler,
   ]);
 
   useEffect(() => {
@@ -236,6 +252,7 @@ const LessonDisplay = (props) => {
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
       <div className={classes.page} ref={pageRef}>
+        {modalSwitch && translationRef.current}
         {!props.isLoading &&
           props.status === "" &&
           lessonPages !== null &&

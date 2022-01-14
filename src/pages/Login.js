@@ -2,7 +2,6 @@ import { useState, useRef, useContext } from "react";
 
 import AuthContext from "../store/auth-context";
 import Form from "../components/UI/Form";
-import formClasses from "./Forms.module.css";
 import classes from "./Login.module.css";
 
 const Login = () => {
@@ -89,18 +88,18 @@ const Login = () => {
 
   return (
     <Form>
-      <form className={formClasses.controls}>
+      <form className={classes.controls}>
         {createMode && (
-          <div className={formClasses.control}>
+          <div className={classes.control}>
             <label>Username</label>
             <input type="text" ref={usernameInputRef} />
           </div>
         )}
-        <div className={formClasses.control}>
+        <div className={classes.control}>
           <label>Email</label>
           <input type="text" ref={emailInputRef} />
         </div>
-        <div className={formClasses.control}>
+        <div className={classes.control}>
           <label>Password</label>
           <input type="password" ref={passwordInputRef} />
         </div>
