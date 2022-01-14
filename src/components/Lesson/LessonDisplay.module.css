@@ -22,6 +22,11 @@
   transition-duration: 150ms;
 }
 
+.button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .page {
   flex: 5 0 0;
   height: 100%;
@@ -42,6 +47,7 @@
 .linked-word:hover {
   fill: blue;
   padding-bottom: .5;
+
 }
 
 /* .linked-word::after {
