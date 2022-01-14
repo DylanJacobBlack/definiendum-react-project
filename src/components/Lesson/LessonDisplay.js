@@ -22,8 +22,7 @@ const LessonDisplay = (props) => {
   const [lessonPages, setLessonPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [modalSwitch, setModalSwitch] = useState(false);
-
-  const translationRef = useRef();
+  const [translation, setTranslation] = useState(null);
 
   const canvasRef = useRef();
   const pageRef = useRef();
@@ -40,13 +39,13 @@ const LessonDisplay = (props) => {
       const response = await fetch("http://localhost:3000/word", {
         method: "POST",
         body: JSON.stringify({
-          text: event.target.textContent,
+          text: event.target.textContent.trim(),
           language: "la",
         }),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
-      translationRef.current = data.translation;
+      setTranslation(data.translation)
       setModalSwitch(true);
     })();
   }, []);
@@ -252,7 +251,7 @@ const LessonDisplay = (props) => {
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
       <div className={classes.page} ref={pageRef}>
-        {modalSwitch && translationRef.current}
+        {modalSwitch && translation && translation}
         {!props.isLoading &&
           props.status === "" &&
           lessonPages !== null &&
