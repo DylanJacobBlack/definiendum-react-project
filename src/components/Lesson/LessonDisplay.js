@@ -31,8 +31,8 @@ const LessonDisplay = (props) => {
 
   const pagePaddingLeft = 60;
   const pagePaddingRight = 75;
-  const approxWordsPerPage = 500;
-  const lineHeight = 25;
+  const approxWordsPerPage = 200;
+  const lineHeight = 33;
 
   const wordHandler = useCallback((event) => {
     (async function () {
@@ -56,7 +56,7 @@ const LessonDisplay = (props) => {
       const columnWidth = pageRef.current.clientWidth;
       const columnHeight = pageRef.current.clientHeight;
       const maxLinesPerPage = parseInt(
-        (columnHeight + 1.01 ** columnHeight) / lineHeight
+        (columnHeight + 1.009 ** columnHeight) / lineHeight
       );
       const x = pagePaddingLeft;
       const y = lineHeight;
