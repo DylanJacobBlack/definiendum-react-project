@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 import Form from "../components/UI/Form";
-import classes from "./Forms.module.css";
+import classes from "./NewLesson.module.css";
 
 const NewLesson = (props) => {
   const titleInputRef = useRef();

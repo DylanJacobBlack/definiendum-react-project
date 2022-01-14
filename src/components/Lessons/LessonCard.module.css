@@ -12,14 +12,14 @@
   vertical-align: bottom;
 }
 
-h2,
+.lesson h2,
 h3 {
   font-family: "Ubuntu", sans-serif;
-  color: black !important;
+  color: black;
   font-size: medium;
 }
 
-p {
+.lesson p {
   font-family: "Ubuntu", sans-serif;
   color: rgb(73, 73, 73) !important;
   padding: 0.5rem;
@@ -31,11 +31,11 @@ p {
 }
 
 @media only screen and (min-width: 1078px) {
-  h2,
+  .lesson h2,
   h3 {
     font-size: large;
   }
-  p {
+  .lesson p {
     font-size: medium;
   }
 }

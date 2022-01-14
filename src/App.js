@@ -29,7 +29,7 @@ function App() {
         }),
         headers: { "Content-Type": "application/json" },
       });
-      console.log("REPONSE!!" + response);
+      console.log("RESPONSE!!" + response);
     } catch (error) {
       console.log(error);
     }

@@ -6,3 +6,59 @@
   background-color: white;
   font-weight: bold;
 }
+
+.controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.controls button {
+  padding: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: large;
+  margin-top: 2rem;
+  max-width: 10rem;
+}
+
+.controls button:hover {
+  background-color: rgb(226, 225, 225);
+  transition-duration: 150ms;
+}
+
+.control {
+  font-weight: bold;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.control label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #686868;
+}
+
+.control input {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgb(231, 230, 230);
+  max-width: 20rem;
+}
+
+.control textarea {
+  resize: none;
+  height: 10rem;
+  scroll-behavior: auto;
+}
+
+.invalid {
+  background-color: rgb(253, 207, 207) !important;
+}
+
+.warning {
+  text-align: center;
+  margin: 1rem;
+  color: red;
+}
