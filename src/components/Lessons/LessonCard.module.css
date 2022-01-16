@@ -1,6 +1,6 @@
 .lesson {
   background-color: whitesmoke;
-  border: 2px solid black;
+  border: .2rem solid black;
   overflow: hidden;
   display: flex;
   height: 8.5rem;
