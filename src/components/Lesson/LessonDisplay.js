@@ -6,22 +6,22 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import Definition from "./Definition";
 
-function debounce(fn, ms) {
+function debounce(fn, milliseconds) {
   let timer;
   return () => {
     clearTimeout(timer);
     timer = setTimeout(() => {
       timer = null;
       fn.apply(this, arguments);
-    }, ms);
+    }, milliseconds);
   };
 }
 
 const LessonDisplay = (props) => {
   const [lessonPages, setLessonPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [modalSwitch, setModalSwitch] = useState(false);
   const [translation, setTranslation] = useState(null);
 
   const canvasRef = useRef();
@@ -30,7 +30,7 @@ const LessonDisplay = (props) => {
   const [dimensions, setDimensions] = useState({});
 
   const pagePaddingLeft = 60;
-  const pagePaddingRight = 75;
+  const pagePaddingRight = 60;
   const approxWordsPerPage = 200;
   const lineHeight = 33;
 
@@ -39,14 +39,15 @@ const LessonDisplay = (props) => {
       const response = await fetch("http://localhost:3000/word", {
         method: "POST",
         body: JSON.stringify({
-          text: event.target.textContent.trim(),
+          text: event.target.textContent
+            .trim()
+            .replace(/[,./?;':~&%$#@*^|]/g, ""),
           language: "la",
         }),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
-      setTranslation(data.translation)
-      setModalSwitch(true);
+      setTranslation(data.translation);
     })();
   }, []);
 
@@ -55,9 +56,7 @@ const LessonDisplay = (props) => {
       const pages = [];
       const columnWidth = pageRef.current.clientWidth;
       const columnHeight = pageRef.current.clientHeight;
-      const maxLinesPerPage = parseInt(
-        (columnHeight + 1.009 ** columnHeight) / lineHeight
-      );
+      const maxLinesPerPage = parseInt(columnHeight / (lineHeight - 5));
       const x = pagePaddingLeft;
       const y = lineHeight;
       const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
@@ -70,7 +69,7 @@ const LessonDisplay = (props) => {
       const context = canvas.getContext("2d");
       context.font = "20px verdana";
       const textPara = [];
-      // Pushing zeros allows the textToLines function to detect page breaks
+      // Pushing zeroes allows the textToLines function to detect page breaks
       props.text.split("\n").forEach((para) => {
         if (para) {
           textPara.push(para);
@@ -221,20 +220,14 @@ const LessonDisplay = (props) => {
     };
   }, [currentPage, lessonPages]);
 
-  useEffect(() => {
-    const debouncedHandleResize = debounce(function handleResize() {
-      setDimensions({
-        height: pageRef.current.clientHeight,
-        width: pageRef.current.clientWidth,
-      });
-    }, 100);
+  const debouncedHandleResize = debounce(function handleResize() {
+    setDimensions({
+      height: pageRef.current.clientHeight,
+      width: pageRef.current.clientWidth,
+    });
+  }, 10);
 
-    window.addEventListener("resize", debouncedHandleResize);
-
-    return () => {
-      window.removeEventListener("resize", debouncedHandleResize);
-    };
-  });
+  window.addEventListener("resize", debouncedHandleResize);
 
   const pageBackHandler = (event) => {
     if (currentPage > 0) setCurrentPage(currentPage - 1);
@@ -244,6 +237,10 @@ const LessonDisplay = (props) => {
     if (currentPage < lessonPages.length - 1) setCurrentPage(currentPage + 1);
   };
 
+  const onHideHandler = () => {
+    setTranslation(null);
+  }
+
   return (
     <div className={classes.lesson}>
       <canvas ref={canvasRef} className={classes.canvas} />
@@ -251,7 +248,7 @@ const LessonDisplay = (props) => {
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
       <div className={classes.page} ref={pageRef}>
-        {modalSwitch && translation && translation}
+        {translation && <Definition translation={translation} onHide={onHideHandler}/>}
         {!props.isLoading &&
           props.status === "" &&
           lessonPages !== null &&

@@ -10,10 +10,9 @@
   height: 100%;
   font-size: xx-large;
   border: none;
-  width: 100px;
-  flex: 1 0 0;
   border-radius: 0%;
   background-color: whitesmoke;
+  width: 10%;
 }
 
 .button:hover {
@@ -28,9 +27,9 @@
 }
 
 .page {
-  flex: 5 0 0;
+  flex: 1 0 0;
   height: 100%;
-  padding-top: 45px;
+  padding-top: 3rem;
   background-color: white;
   overflow: hidden;
 }

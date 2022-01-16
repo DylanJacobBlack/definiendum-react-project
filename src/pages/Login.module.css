@@ -13,8 +13,8 @@
 }
 
 .controls button {
-  padding: 5px;
-  border-radius: 20px;
+  padding: .3rem;
+  border-radius: 1.4rem;
   cursor: pointer;
   font-weight: bolder;
   font-size: large;
@@ -41,10 +41,10 @@
 }
 
 .control input {
-  padding: 5px;
-  border-radius: 5px;
+  padding: .3rem;
+  border-radius: .3rem;
   background-color: rgb(231, 230, 230);
-  max-width: 20rem;
+  max-width: 15rem;
 }
 
 .control textarea {

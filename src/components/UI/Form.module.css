@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   background-color: rgb(216, 250, 230);
-  min-height: calc(100vh - 65px);
+  min-height: calc(100vh - 4.2rem);
 }
 .form {
   display: flex;
@@ -11,9 +11,8 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  border-radius: 10px;
-  padding: 40px;
-  margin: 20px;
-  min-width: 400px;
-  border: solid 2px black;
+  border-radius: .6rem;
+  padding: 2.5rem;
+  margin: 1.4rem;
+  border: solid .1rem black;
 }

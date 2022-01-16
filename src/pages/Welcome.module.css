@@ -1,6 +1,6 @@
 .welcome {
   background-color: rgb(216, 250, 230);
-  min-height: calc(100vh - 65px);
+  min-height: calc(100vh - 4.2rem);
   display: flex;
   align-items: center;
   flex-direction: column;
