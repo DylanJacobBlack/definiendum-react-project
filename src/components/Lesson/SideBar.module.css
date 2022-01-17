@@ -1,19 +1,25 @@
-.sidebar {
-  background-color: rgb(186, 212, 197);
-  width: 16%;
-  height: 100%;
-  box-shadow: .2rem 0 .5rem rgb(131, 131, 131);
-  border-right: solid .2rem rgb(171, 204, 184);
-  display: block;
-  padding: 1rem;
-}
-
-.lesson-pic{
+.lesson-pic {
   overflow: hidden;
   border-radius: 1rem;
   margin-bottom: 1rem;
 }
 
-img{
+.sidebar {
+  display: none;
+}
+
+img {
   height: 13rem;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    background-color: rgb(186, 212, 197);
+    width: 16%;
+    height: 100%;
+    box-shadow: 0.2rem 0 0.5rem rgb(131, 131, 131);
+    border-right: solid 0.2rem rgb(171, 204, 184);
+    display: block;
+    padding: 1rem;
+  }
 }

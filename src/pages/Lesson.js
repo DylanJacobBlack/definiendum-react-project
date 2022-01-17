@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import classes from "./Lesson.module.css";
 import SideBar from "../components/Lesson/SideBar";
 import LessonDisplay from "../components/Lesson/LessonDisplay";
+import loadingSpinner from "../assets/spinner.jpg"
 
 const Lesson = () => {
   const params = useParams();
   const [lesson, setLesson] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Lesson = () => {
     fetchLessonData();
   }, [params.lessonId]);
 
-  let status = "No lesson found.";
+  let status = "";
 
   if (lesson !== null) {
     status = "";
@@ -43,13 +44,12 @@ const Lesson = () => {
     status = error;
   }
 
-  if (isLoading) {
-    status = "Lesson loading...";
-  }
-
   return (
     <div className={classes.lesson}>
       {status !== "" && <h1>{status}</h1>}
+      {isLoading && (
+        <img className="spinner" src={loadingSpinner} alt="loading spinner" />
+      )}
       {!isLoading && status === "" && (
         <SideBar title={lesson.title} isLoading={isLoading} status={status} />
       )}

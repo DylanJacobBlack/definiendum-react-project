@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import AuthContext from "../store/auth-context";
 import classes from "./Lessons.module.css";
 import LessonCard from "../components/Lessons/LessonCard";
+import loadingSpinner from '../assets/spinner.jpg'
 
 const Lessons = () => {
   const [lessons, setLessons] = useState([]);
@@ -33,23 +34,16 @@ const Lessons = () => {
     }
   }, [isLoggedIn]);
 
-  let status = "No lessons found.";
-
-  if (lessons.length > 0) {
-    status = "";
-  }
+  let status = "";
 
   if (error) {
     status = error;
   }
 
-  if (isLoading) {
-    status = "Lessons loading...";
-  }
-
   return (
     <div className={classes.lessons}>
       {status !== "" && <h1>{status}</h1>}
+      {isLoading && <img className="spinner" src={loadingSpinner} alt="Loading spinner" />}
       {!isLoading &&
         lessons.length > 0 &&
         lessons.map((lesson) => (

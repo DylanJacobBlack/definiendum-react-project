@@ -7,3 +7,10 @@ body {
 a {
   text-decoration: none;
 }
+
+.spinner {
+ height: 4rem;
+ position:absolute;
+ top: 50%;
+ left: 50%;
+}
