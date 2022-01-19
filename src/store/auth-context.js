@@ -15,17 +15,12 @@ const calculateRemainingTime = (expirationTime) => {
 
   const remainingDuration = adjExpirationTime - currentTime;
 
-  console.log(`Remaining time from calculateRemainingTime: ${remainingDuration}`)
-
   return remainingDuration;
 };
 
 const retrieveStoredToken = () => {
   const storedToken = localStorage.getItem("token");
   const storedExpirationTime = localStorage.getItem("expirationTime");
-
-  console.log(storedToken)
-  console.log(storedExpirationTime)
 
   const remainingDuration = calculateRemainingTime(storedExpirationTime);
 
@@ -34,8 +29,6 @@ const retrieveStoredToken = () => {
     localStorage.removeItem("expirationTime");
     return null;
   }
-
-  console.log({ token: storedToken, remainingTime: remainingDuration })
 
   return { token: storedToken, remainingTime: remainingDuration };
 };
@@ -52,7 +45,6 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (token, expirationTime) => {
     setToken(token);
-    console.log(`Token: ${token}`)
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
 
@@ -73,8 +65,6 @@ export const AuthContextProvider = (props) => {
 
   useEffect(() => {
     if (tokenData) {
-      console.log(`Logout timer: ${logoutTimer}`);
-      console.log(`Remaining time in useEffect: ${tokenData.remainingTime}`)
       logoutTimer = setTimeout(logoutHandler, tokenData.remainingTime);
     }
   }, [tokenData, logoutHandler]);
