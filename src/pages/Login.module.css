@@ -1,15 +1,17 @@
 .switch {
-  margin: 1rem;
-  padding: .3rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   cursor: pointer;
   border: none;
   background-color: white;
+  font-size: medium;
   font-weight: bold;
 }
 
 .controls {
   display: flex;
   flex-direction: column;
+  min-width: 15rem;
 }
 
 .controls button {
@@ -19,7 +21,6 @@
   font-weight: bolder;
   font-size: large;
   margin-top: 2rem;
-  max-width: 10rem;
 }
 
 .controls button:hover {
@@ -44,7 +45,6 @@
   padding: .3rem;
   border-radius: .3rem;
   background-color: rgb(231, 230, 230);
-  max-width: 15rem;
 }
 
 .control textarea {
@@ -58,7 +58,6 @@
 }
 
 .warning {
-  text-align: center;
-  margin: 1rem;
   color: red;
+  font-size: small;
 }

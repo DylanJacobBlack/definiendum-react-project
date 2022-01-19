@@ -53,11 +53,11 @@ const NavBar = () => {
         </div>
         {!isLoggedIn && (
           <Link to="/login">
-            <button className={classes.login}>login</button>
+            <button className={`${classes.login} ${classes.btn}`}>login</button>
           </Link>
         )}
         {isLoggedIn && (
-          <button className={classes.active} onClick={logoutHandler}>
+          <button className={`${classes.active} ${classes.btn}`} onClick={logoutHandler}>
             logout
           </button>
         )}
