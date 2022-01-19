@@ -20,39 +20,18 @@
   color: rgb(207, 207, 207);
   display: flex;
   justify-content: space-between;
-  width: 210px;
-  font-size: x-large;
+  align-items: center;
+  width: 10.5rem;
+  font-size: large;
+}
+
+.dropdown {
+  display: inline;
+  font-size: 250%;
 }
 
 .links {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.links a:link {
-  font-family: "Ubuntu", sans-serif;
-  font-size: large;
-  margin: auto;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  text-decoration: none;
-  color: rgb(207, 207, 207);
-}
-
-.links a:visited {
-  color: rgb(207, 207, 207);
-}
-
-.links a:hover,
-.links a:active {
-  padding-bottom: 0.2rem;
-  color: rgb(255, 255, 255);
-}
-
-.links a.active {
-  padding-bottom: 0.2rem;
-  color: rgb(255, 255, 255);
-  border-bottom: 1px solid whitesmoke;
+  display: none
 }
 
 .grower {
@@ -60,17 +39,67 @@
 }
 
 button {
-  background-color: rgb(207, 207, 207);
-  border: 1px solid black;
-  padding: 0.7rem;
-  font-family: "Ubuntu", sans-serif;
-  font-size: large;
-  border-radius: 0.4rem;
-  cursor: pointer;
-  color: black;
+  display: none;
 }
 
-button:hover,
-button:active {
-  background-color: whitesmoke;
+@media (min-width: 768px) {
+
+  button {
+    background-color: rgb(207, 207, 207);
+    border: 1px solid black;
+    padding: 0.7rem;
+    font-family: "Ubuntu", sans-serif;
+    font-size: large;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    color: black;
+    display: inline;
+  }
+
+  button:hover,
+  button:active {
+    background-color: whitesmoke;
+  }
+  .links {
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 2rem;
+  }
+
+  .links a:link {
+    font-family: "Ubuntu", sans-serif;
+    font-size: large;
+    margin: auto;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-decoration: none;
+    color: rgb(207, 207, 207);
+  }
+
+  .links a:visited {
+    color: rgb(207, 207, 207);
+  }
+
+  .links a:hover,
+  .links a:active {
+    padding-bottom: 0.2rem;
+    color: rgb(255, 255, 255);
+  }
+
+  .links a.active {
+    padding-bottom: 0.2rem;
+    color: rgb(255, 255, 255);
+    border-bottom: 1px solid whitesmoke;
+  }
+  .logo-text {
+    font-family: "Righteous", cursive;
+    color: rgb(207, 207, 207);
+    display: flex;
+    justify-content: space-between;
+    width: 13.5rem;
+    font-size: x-large;
+  }
+  .dropdown {
+    display: none;
+  }
 }

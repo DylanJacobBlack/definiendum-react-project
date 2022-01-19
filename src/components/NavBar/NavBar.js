@@ -5,6 +5,8 @@ import AuthContext from "../../store/auth-context";
 import classes from "./NavBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+
 
 const NavBar = () => {
   const authCtx = useContext(AuthContext);
@@ -24,9 +26,12 @@ const NavBar = () => {
           <h1>definiens</h1>
         </div>
         <div className={classes.grower}></div>
+        <div className={classes.dropdown}>
+          <FontAwesomeIcon icon={faBars} />
+        </div>
         <div className={classes.links}>
           {isLoggedIn && (
-            <NavLink activeClassName={classes.active} to="/">
+            <NavLink activeClassName={classes.active} to="/" exact>
               lessons
             </NavLink>
           )}
