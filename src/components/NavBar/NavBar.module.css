@@ -38,13 +38,13 @@
   flex-grow: 1;
 }
 
-button {
+.btn {
   display: none;
 }
 
 @media (min-width: 768px) {
 
-  button {
+  .btn {
     background-color: rgb(207, 207, 207);
     border: 1px solid black;
     padding: 0.7rem;
@@ -56,8 +56,8 @@ button {
     display: inline;
   }
 
-  button:hover,
-  button:active {
+  .btn:hover,
+  .btn:active {
     background-color: whitesmoke;
   }
   .links {
