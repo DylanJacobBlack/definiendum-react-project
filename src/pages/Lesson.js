@@ -18,7 +18,7 @@ const Lesson = () => {
         setIsLoading(true);
         setError(null);
         const response = await fetch(
-          `http://localhost:3000/api/v1/lessons/${params.lessonId}`
+          `https://definiens-api.herokuapp.com/api/v1/lessons/${params.lessonId}`
         );
 
         if (!response.ok) {
