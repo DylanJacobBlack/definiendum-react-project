@@ -35,7 +35,7 @@ const LessonDisplay = (props) => {
       .trim()
       .replace(/[,./?;':~&%$#@*^|]/g, "");
     (async function () {
-      const response = await fetch("http://localhost:3000/word", {
+      const response = await fetch("https://definiens-api.herokuapp.com/word", {
         method: "POST",
         body: JSON.stringify({
           text: phrase,
@@ -71,7 +71,7 @@ const LessonDisplay = (props) => {
       if (props.isLoading === false && props.status === "") {
         const pages = [];
         const columnWidth = width;
-        const columnHeight = height - pagePaddingTop - pagePaddingBottom
+        const columnHeight = height - pagePaddingTop - pagePaddingBottom;
         const maxLinesPerPage = parseInt(columnHeight / lineHeight);
         const x = pagePaddingLeft;
         const y = lineHeight;

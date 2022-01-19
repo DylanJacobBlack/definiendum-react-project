@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import AuthContext from "../store/auth-context";
 import classes from "./Lessons.module.css";
 import LessonCard from "../components/Lessons/LessonCard";
-import loadingSpinner from '../assets/spinner.jpg'
+import loadingSpinner from "../assets/spinner.jpg";
 
 const Lessons = () => {
   const [lessons, setLessons] = useState([]);
@@ -19,7 +19,9 @@ const Lessons = () => {
         try {
           setIsLoading(true);
           setError(null);
-          const response = await fetch("http://localhost:3000/api/v1/lessons");
+          const response = await fetch(
+            "https://definiens-api.herokuapp.com/api/v1/lessons"
+          );
 
           if (!response.ok) {
             throw new Error("Something went wrong.");
@@ -43,7 +45,9 @@ const Lessons = () => {
   return (
     <div className={classes.lessons}>
       {status !== "" && <h1>{status}</h1>}
-      {isLoading && <img className="spinner" src={loadingSpinner} alt="Loading spinner" />}
+      {isLoading && (
+        <img className="spinner" src={loadingSpinner} alt="Loading spinner" />
+      )}
       {!isLoading &&
         lessons.length > 0 &&
         lessons.map((lesson) => (
