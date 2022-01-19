@@ -1,21 +1,24 @@
+import React, { Suspense, useContext, Fragment } from "react";
 import { Route, Switch, useHistory, Redirect } from "react-router-dom";
-import { useContext, Fragment } from "react";
 import "./App.module.css";
 
 import NavBar from "./components/NavBar/NavBar";
 import Lessons from "./pages/Lessons";
-import Lesson from "./pages/Lesson";
 import NewLesson from "./pages/NewLesson";
 import Profile from "./pages/Profile";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import AuthContext from "./store/auth-context";
 
+import loadingSpinner from "./assets/spinner.jpg";
+
 function App() {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
 
   const isLoggedIn = authCtx.isLoggedIn;
+
+  const Lesson = React.lazy(() => import("./pages/Lesson"));
 
   async function addLessonHandler(enteredTitle, enteredText) {
     try {
@@ -40,23 +43,34 @@ function App() {
     <Fragment>
       <NavBar />
       {isLoggedIn && (
-        <Switch>
-          <Route path="/" exact>
-            <Lessons />
-          </Route>
-          <Route path="/new">
-            <NewLesson onAddLesson={addLessonHandler} />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/lessons/:lessonId">
-            <Lesson />
-          </Route>
-          <Route path="/*">
-            <Redirect to="/" />
-          </Route>
-        </Switch>
+        <Suspense
+          fallback={
+            <img
+              className="spinner"
+              src={loadingSpinner}
+              alt="Loading spinner"
+            />
+          }
+        >
+          {" "}
+          <Switch>
+            <Route path="/" exact>
+              <Lessons />
+            </Route>
+            <Route path="/new">
+              <NewLesson onAddLesson={addLessonHandler} />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/lessons/:lessonId">
+              <Lesson />
+            </Route>
+            <Route path="/*">
+              <Redirect to="/" />
+            </Route>
+          </Switch>
+        </Suspense>
       )}
       {!isLoggedIn && (
         <Switch>
