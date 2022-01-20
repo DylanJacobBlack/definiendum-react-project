@@ -5,7 +5,7 @@ import "./App.module.css";
 import NavBar from "./components/NavBar/NavBar";
 import Lessons from "./pages/Lessons";
 import NewLesson from "./pages/NewLesson";
-import Profile from "./pages/Profile";
+// import Profile from "./pages/Profile";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import AuthContext from "./store/auth-context";
@@ -60,9 +60,9 @@ function App() {
             <Route path="/new">
               <NewLesson onAddLesson={addLessonHandler} />
             </Route>
-            <Route path="/profile">
+            {/* <Route path="/profile">
               <Profile />
-            </Route>
+            </Route> */}
             <Route path="/lessons/:lessonId">
               <Lesson />
             </Route>

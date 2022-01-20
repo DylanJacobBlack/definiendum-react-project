@@ -44,10 +44,12 @@ const Lessons = () => {
 
   return (
     <div className={classes.lessons}>
-      {status !== "" && <h1>{status}</h1>}
       {isLoading && (
-        <img className="spinner" src={loadingSpinner} alt="Loading spinner" />
+        <div className="spinner-container">
+          <img className="spinner" src={loadingSpinner} alt="Loading spinner" />
+        </div>
       )}
+      {status !== "" && <h1>{status}</h1>}
       {!isLoading &&
         lessons.length > 0 &&
         lessons.map((lesson) => (

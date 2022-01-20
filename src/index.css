@@ -9,8 +9,11 @@ a {
 }
 
 .spinner {
- height: 4rem;
- position:absolute;
- top: 50%;
- left: 50%;
+ width: 4rem;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

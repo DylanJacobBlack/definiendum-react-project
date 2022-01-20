@@ -1,13 +1,12 @@
 .lesson {
   background-color: rgb(255, 255, 255);
   border: 0.2rem solid black;
-  border-radius: 1rem;
   overflow: hidden;
   display: flex;
 }
 
 .lesson img {
-  height: 10rem;
+  width: 8rem;
   background-size: cover;
   vertical-align: bottom;
   border-right: solid black 0.2rem;
@@ -28,7 +27,9 @@ h3 {
 }
 
 .level {
-  padding: 1rem;
+  padding: .6rem;
+  font-size: medium;
+  flex-shrink: 1;
 }
 
 .info:before {

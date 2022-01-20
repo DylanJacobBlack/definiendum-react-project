@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import classes from "./Lesson.module.css";
 import SideBar from "../components/Lesson/SideBar";
 import LessonDisplay from "../components/Lesson/LessonDisplay";
-import loadingSpinner from "../assets/spinner.jpg"
+// import loadingSpinner from "../assets/spinner.jpg"
 
 const Lesson = () => {
   const params = useParams();
@@ -46,10 +46,12 @@ const Lesson = () => {
 
   return (
     <div className={classes.lesson}>
+      {/* {isLoading && (
+        <div className="spinner-container">
+          <img className="spinner" src={loadingSpinner} alt="Loading spinner" />
+        </div>
+      )} */}
       {status !== "" && <h1>{status}</h1>}
-      {isLoading && (
-        <img className="spinner" src={loadingSpinner} alt="loading spinner" />
-      )}
       {!isLoading && status === "" && (
         <SideBar title={lesson.title} isLoading={isLoading} status={status} />
       )}
