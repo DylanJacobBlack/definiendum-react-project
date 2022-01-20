@@ -56,6 +56,7 @@ const Lessons = () => {
             id={lesson.id}
             title={lesson.title}
             text={lesson.text}
+            level={lesson.diff_lev}
           />
         ))}
     </div>

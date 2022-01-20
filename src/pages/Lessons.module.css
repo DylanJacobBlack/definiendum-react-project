@@ -1,9 +1,10 @@
 .lessons {
   background-color: rgb(216, 250, 230);
   min-height: calc(100vh - 4.2rem);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 25rem));
+  grid-auto-rows: 16rem;
+  gap: 1rem;
   padding-top: 1.5rem;
-  padding-bottom: 3rem;
+  justify-content: center;
 }

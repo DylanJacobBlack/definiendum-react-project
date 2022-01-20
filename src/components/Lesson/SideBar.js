@@ -8,6 +8,7 @@ const SideBar = (props) => {
         <img src={dummyPic} alt="dummy-pic" />
       </div>
       <h3>{props.title}</h3>
+      {/* <h3>{props.level}</h3> */}
     </div>
   );
 };
