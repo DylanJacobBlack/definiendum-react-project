@@ -45,11 +45,11 @@ const NavBar = () => {
               welcome
             </NavLink>
           )}
-          {isLoggedIn && (
+          {/* {isLoggedIn && (
             <NavLink activeClassName={classes.active} to="/profile">
               profile
             </NavLink>
-          )}
+          )} */}
         </div>
         {!isLoggedIn && (
           <Link to="/login">
