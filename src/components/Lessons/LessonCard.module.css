@@ -1,6 +1,7 @@
 .lesson {
   background-color: rgb(255, 255, 255);
   border: 0.2rem solid black;
+  border-radius: 2rem 2rem 2rem 0rem;
   overflow: hidden;
   display: flex;
 }
@@ -30,6 +31,29 @@ h3 {
   padding: .6rem;
   font-size: medium;
   flex-shrink: 1;
+  border-right: .2rem solid black;
+  height: 100%;
+}
+
+.level1 {
+  background-color: rgb(229, 182, 229);
+}
+
+.level2 {
+  background-color: rgb(185, 109, 185);
+}
+
+.level3 {
+  background-color: rgb(146, 55, 146);
+}
+
+.level4 {
+  background-color: rgb(134, 26, 134);
+}
+
+.level5 {
+  background-color: rgb(87, 1, 87);
+  color: white;
 }
 
 .info:before {

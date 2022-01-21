@@ -36,7 +36,7 @@ const Lesson = (props) => {
     <div className={classes.lesson}>
       <Link to={`/lessons/${props.id}`}>
         <img src={dummyPic} alt="dummy-pic" />
-        <h3 className={classes.level}>{getLevel(props.level)}</h3>
+        <h3 className={`${classes.level} ${classes[`level${props.level}`]}`}>{getLevel(props.level)}</h3>
       </Link>
       <Link to={`/lessons/${props.id}`}>
         <div className={classes.info}>
