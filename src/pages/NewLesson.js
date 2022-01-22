@@ -6,24 +6,39 @@ import classes from "./NewLesson.module.css";
 const NewLesson = (props) => {
   const titleInputRef = useRef();
   const textInputRef = useRef();
+  const pictureInputRef = useRef();
+  const audioInputRef = useRef();
 
   const [formIsValid, setFormIsValid] = useState(false);
-  const [formTouched, setFormTouched] = useState(false)
+  const [formTouched, setFormTouched] = useState(false);
   const [enteredTitleBlurred, setEnteredTitleBlurred] = useState(false);
   const [enteredTextBlurred, setEnteredTextBlurred] = useState(false);
+  const [picture, setPicture] = useState(null);
 
   const submitLessonHandler = (event) => {
     event.preventDefault();
 
-    const enteredTitle = titleInputRef.current.value;
-    const enteredText = textInputRef.current.value;
+    const formData = new FormData();
 
-    if (enteredTitle.trim() === "" || enteredText.trim() === "") {
+    const enteredTitle = titleInputRef.current.value.trim();
+    const enteredText = textInputRef.current.value.trim();
+
+    formData.append("lesson[title]", enteredTitle);
+    formData.append("lesson[text]", enteredText);
+    formData.append("lesson[picture]", picture);
+    formData.append("lesson[user_id]", 1);
+    formData.append("lesson[language_id]", 1);
+
+
+
+    console.log(...formData.entries());
+
+    if (enteredTitle === "" || enteredText === "") {
       setFormIsValid(false);
       return;
     }
 
-    props.onAddLesson(enteredTitle, enteredText);
+    props.onAddLesson(formData);
   };
 
   const onBlurHandler = (event) => {
@@ -39,7 +54,12 @@ const NewLesson = (props) => {
 
   const onFocusHandler = (event) => {
     setFormIsValid(true);
-  }
+  };
+
+  const fileSelectedHandler = (event) => {
+    setPicture(event.target.files[0]);
+    console.log(picture);
+  };
 
   return (
     <Form>
@@ -50,10 +70,39 @@ const NewLesson = (props) => {
             id="title"
             type="text"
             ref={titleInputRef}
-            className={(!formIsValid && enteredTitleBlurred) ? classes.invalid : ''}
+            className={
+              !formIsValid && enteredTitleBlurred ? classes.invalid : ""
+            }
             onBlur={onBlurHandler}
             onFocus={onFocusHandler}
+            name="title"
           />
+        </div>
+        <div className={classes.files}>
+          <div className={classes.control}>
+            <label>Picture</label>
+            <input
+              id="picture"
+              type="file"
+              ref={pictureInputRef}
+              // className={(!formIsValid && enteredTextBlurred) ? classes.invalid : ''}
+              onBlur={onBlurHandler}
+              onFocus={onFocusHandler}
+              onChange={fileSelectedHandler}
+              name="picture"
+            />
+          </div>
+          <div className={classes.control}>
+            <label>Audio</label>
+            <input
+              id="audio"
+              type="file"
+              ref={audioInputRef}
+              className={(!formIsValid && enteredTextBlurred) ? classes.invalid : ''}
+              onBlur={onBlurHandler}
+              onFocus={onFocusHandler}
+            />
+          </div>
         </div>
         <div className={classes.control}>
           <label>Text</label>
@@ -61,9 +110,12 @@ const NewLesson = (props) => {
             id="text"
             type="text"
             ref={textInputRef}
-            className={(!formIsValid && enteredTextBlurred) ? classes.invalid : ''}
+            className={
+              !formIsValid && enteredTextBlurred ? classes.invalid : ""
+            }
             onBlur={onBlurHandler}
             onFocus={onFocusHandler}
+            name="text"
           />
         </div>
         <button type="˝submit">Save Lesson</button>

@@ -54,3 +54,10 @@
   margin: 1rem;
   color: red;
 }
+
+@media (min-width: 1024px) {
+  .files {
+    display: flex;
+    justify-content: space-between;
+  }
+}
