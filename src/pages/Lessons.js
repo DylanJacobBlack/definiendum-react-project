@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 
+
+
 import AuthContext from "../store/auth-context";
 import classes from "./Lessons.module.css";
 import LessonCard from "../components/Lessons/LessonCard";
@@ -28,6 +30,7 @@ const Lessons = () => {
           }
           const data = await response.json();
           setLessons(data.lessons);
+          console.log(data.lessons);
         } catch (error) {
           setError(error.message);
         }
