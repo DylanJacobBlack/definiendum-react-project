@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
+import { Image } from "cloudinary-react";
 
 import classes from "./LessonCard.module.css";
-import dummyPic from "./card-left.jpg";
 
 const Lesson = (props) => {
   const truncate = () => {
@@ -13,30 +13,35 @@ const Lesson = (props) => {
 
   const getLevel = (level) => {
     if (level === "1") {
-      return "Novice"
+      return "Newbie";
     }
     if (level === "2") {
-      return "Beginner"
+      return "Beginner";
     }
     if (level === "3") {
-      return "Intermediate"
+      return "Intermediate";
     }
     if (level === "4") {
-      return "Upper Intermediate"
+      return "Proficient";
     }
     if (level === "5") {
-      return "Advanced"
+      return "Advanced";
     }
     if (level === "6") {
-      return "Technical"
+      return "Technical";
     }
-  }
+  };
 
   return (
     <div className={classes.lesson}>
       <Link to={`/lessons/${props.id}`}>
-        <img src={dummyPic} alt="dummy-pic" />
-        <h3 className={`${classes.level} ${classes[`level${props.level}`]}`}>{getLevel(props.level)}</h3>
+        <Image
+          cloudName="dqlx6iqqt"
+          publicId="https://res.cloudinary.com/dqlx6iqqt/image/upload/v1642902680/development/18ahxq2hrhcohrfetnmh7m9e1215.jpg"
+        />
+        <h3 className={`${classes.level} ${classes[`level${props.level}`]}`}>
+          {getLevel(props.level)}
+        </h3>
       </Link>
       <Link to={`/lessons/${props.id}`}>
         <div className={classes.info}>

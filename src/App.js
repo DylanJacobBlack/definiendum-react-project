@@ -20,17 +20,16 @@ function App() {
 
   const Lesson = React.lazy(() => import("./pages/Lesson"));
 
-  async function addLessonHandler(enteredTitle, enteredText) {
+  async function addLessonHandler(formData) {
     try {
-      const response = await fetch("http://localhost:3000/api/v1/lessons", {
+      console.log("trying")
+      const response = await fetch("http://localhost:3000/api/v1/lessons", 
+      {
         method: "POST",
-        body: JSON.stringify({
-          title: enteredTitle,
-          text: enteredText,
-          user_id: 1,
-          language_id: 1,
-        }),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          accepts: "application/json"
+        },
+        body: formData
       });
       console.log("RESPONSE!!" + response);
     } catch (error) {

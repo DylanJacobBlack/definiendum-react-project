@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 
+
+
 import AuthContext from "../store/auth-context";
 import classes from "./Lessons.module.css";
 import LessonCard from "../components/Lessons/LessonCard";
@@ -20,7 +22,7 @@ const Lessons = () => {
           setIsLoading(true);
           setError(null);
           const response = await fetch(
-            "https://definiens-api.herokuapp.com/api/v1/lessons"
+            "http://localhost:3000/api/v1/lessons"
           );
 
           if (!response.ok) {
@@ -28,6 +30,7 @@ const Lessons = () => {
           }
           const data = await response.json();
           setLessons(data.lessons);
+          console.log(data.lessons);
         } catch (error) {
           setError(error.message);
         }
