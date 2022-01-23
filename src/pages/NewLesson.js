@@ -29,8 +29,6 @@ const NewLesson = (props) => {
     formData.append("lesson[user_id]", 1);
     formData.append("lesson[language_id]", 1);
 
-
-
     console.log(...formData.entries());
 
     if (enteredTitle === "" || enteredText === "") {
@@ -78,30 +76,77 @@ const NewLesson = (props) => {
             name="title"
           />
         </div>
-        <div className={classes.files}>
-          <div className={classes.control}>
-            <label>Picture</label>
-            <input
-              id="picture"
-              type="file"
-              ref={pictureInputRef}
-              // className={(!formIsValid && enteredTextBlurred) ? classes.invalid : ''}
-              onBlur={onBlurHandler}
-              onFocus={onFocusHandler}
-              onChange={fileSelectedHandler}
-              name="picture"
-            />
+        <div className={classes.collapsable}>
+          <div>
+            <div className={classes.control}>
+              <label>Language</label>
+              <select
+                id="language"
+                type="text"
+                ref={titleInputRef}
+                className={
+                  !formIsValid && enteredTitleBlurred ? classes.invalid : ""
+                }
+                onBlur={onBlurHandler}
+                onFocus={onFocusHandler}
+                name="language"
+              >
+                <option value="chinese">Chinese</option>
+                <option value="english">English</option>
+                <option value="french">French</option>
+                <option value="german">German</option>
+                <option value="spanish">Spansih</option>
+              </select>
+            </div>
+            <div className={classes.control}>
+              <label>Difficulty</label>
+              <select
+                id="language"
+                type="text"
+                ref={titleInputRef}
+                className={
+                  !formIsValid && enteredTitleBlurred ? classes.invalid : ""
+                }
+                onBlur={onBlurHandler}
+                onFocus={onFocusHandler}
+                name="language"
+              >
+                <option value="1">Newbie</option>
+                <option value="2">Beginner</option>
+                <option value="3">Intermediate</option>
+                <option value="4">Proficient</option>
+                <option value="5">Advanced</option>
+                <option value="6">Technical</option>
+              </select>
+            </div>
           </div>
-          <div className={classes.control}>
-            <label>Audio</label>
-            <input
-              id="audio"
-              type="file"
-              ref={audioInputRef}
-              className={(!formIsValid && enteredTextBlurred) ? classes.invalid : ''}
-              onBlur={onBlurHandler}
-              onFocus={onFocusHandler}
-            />
+          <div>
+            <div className={classes.control}>
+              <label>Picture</label>
+              <input
+                id="picture"
+                type="file"
+                ref={pictureInputRef}
+                // className={(!formIsValid && enteredTextBlurred) ? classes.invalid : ''}
+                onBlur={onBlurHandler}
+                onFocus={onFocusHandler}
+                onChange={fileSelectedHandler}
+                name="picture"
+              />
+            </div>
+            <div className={classes.control}>
+              <label>Audio</label>
+              <input
+                id="audio"
+                type="file"
+                ref={audioInputRef}
+                className={
+                  !formIsValid && enteredTextBlurred ? classes.invalid : ""
+                }
+                onBlur={onBlurHandler}
+                onFocus={onFocusHandler}
+              />
+            </div>
           </div>
         </div>
         <div className={classes.control}>

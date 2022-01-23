@@ -13,7 +13,7 @@ const Lesson = (props) => {
 
   const getLevel = (level) => {
     if (level === "1") {
-      return "Novice"
+      return "Newbie"
     }
     if (level === "2") {
       return "Beginner"
@@ -22,7 +22,7 @@ const Lesson = (props) => {
       return "Intermediate"
     }
     if (level === "4") {
-      return "Upper Intermediate"
+      return "Proficient"
     }
     if (level === "5") {
       return "Advanced"

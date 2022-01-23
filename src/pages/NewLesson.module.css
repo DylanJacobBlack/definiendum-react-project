@@ -10,7 +10,7 @@
   cursor: pointer;
   font-weight: bolder;
   font-size: large;
-  margin-top: 2rem;
+  margin-top: 1rem;
   max-width: 10rem;
 }
 
@@ -21,7 +21,7 @@
 
 .control {
   font-weight: bold;
-  margin-top: 1rem;
+  margin-bottom: .7rem;
   display: flex;
   flex-direction: column;
 }
@@ -56,7 +56,7 @@
 }
 
 @media (min-width: 1024px) {
-  .files {
+  .collapsable {
     display: flex;
     justify-content: space-between;
   }
