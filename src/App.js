@@ -23,7 +23,7 @@ function App() {
   async function addLessonHandler(formData) {
     try {
       console.log("trying")
-      const response = await fetch("http://localhost:3000/api/v1/lessons", 
+      const response = await fetch("https://definiens-api.herokuapp.com/api/v1/lessons", 
       {
         method: "POST",
         headers: {

@@ -89,9 +89,9 @@ const Login = () => {
     (async function (enteredData) {
       let url;
       if (createMode) {
-        url = "http://localhost:3000/users";
+        url = "https://definiens-api.herokuapp.com/users";
       } else {
-        url = "http://localhost:3000/auth/login";
+        url = "https://definiens-api.herokuapp.com/auth/login";
       }
       try {
         setIsLoading(true);
