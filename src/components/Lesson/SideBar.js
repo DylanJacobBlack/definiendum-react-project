@@ -1,13 +1,18 @@
 import classes from "./SideBar.module.css";
-import dummyPic from "../Lessons/card-left.jpg";
+
+import { Image, Transformation } from "cloudinary-react";
 
 const SideBar = (props) => {
+  const url = props.url.match(
+    /(?!\/)[^/]*(?=\.jpg|.jpeg|.png|.gif|.svg|.tiff)/g
+  )[0];
+
   return (
     <div className={classes.sidebar}>
-      <div className={classes["lesson-pic"]}>
-        <img src={dummyPic} alt="dummy-pic" />
-      </div>
-      <h3>{props.title}</h3>
+      <Image publicId={url} alt="lesson image">
+        <Transformation height="195" width="160" crop="fill" />
+      </Image>
+      <div className={classes.info}>{props.title}</div>
       {/* <h3>{props.level}</h3> */}
     </div>
   );

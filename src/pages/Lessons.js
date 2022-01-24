@@ -30,7 +30,6 @@ const Lessons = () => {
           }
           const data = await response.json();
           setLessons(data.lessons);
-          console.log(data.lessons);
         } catch (error) {
           setError(error.message);
         }
@@ -62,6 +61,7 @@ const Lessons = () => {
             title={lesson.title}
             text={lesson.text}
             level={lesson.diff_lev}
+            url={lesson.url}
           />
         ))}
     </div>

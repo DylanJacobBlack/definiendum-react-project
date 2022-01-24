@@ -35,7 +35,7 @@ const LessonDisplay = (props) => {
       .trim()
       .replace(/[,./?;':~&%$#@*^|]/g, "");
     (async function () {
-      const response = await fetch("https://definiens-api.herokuapp.com/word", {
+      const response = await fetch("http://localhost:3000/word", {
         method: "POST",
         body: JSON.stringify({
           text: phrase,
@@ -70,12 +70,16 @@ const LessonDisplay = (props) => {
     (width, height) => {
       if (props.isLoading === false && props.status === "") {
         const pages = [];
-        const columnWidth = width;
-        const columnHeight = height - pagePaddingTop - pagePaddingBottom;
-        const maxLinesPerPage = parseInt(columnHeight / lineHeight);
+        
+        let maxWidth = 300;
+        let columnHeight = 200;
+        if (height - pagePaddingTop - pagePaddingBottom > 200) columnHeight = height - pagePaddingTop - pagePaddingBottom;
+        if (width - pagePaddingLeft - pagePaddingRight > 300) maxWidth = width - pagePaddingLeft - pagePaddingRight;
+
+        const maxLinesPerPage = Math.round(columnHeight / lineHeight) - 2;
         const x = pagePaddingLeft;
         const y = lineHeight;
-        const maxWidth = columnWidth - pagePaddingLeft - pagePaddingRight;
+        
 
         // # words that have been displayed
         //(used when ordering a new page of words)
@@ -182,13 +186,13 @@ const LessonDisplay = (props) => {
           return (
             <div
               className={classes.column}
-              style={{ height: columnHeight, width: columnWidth }}
+              style={{ height: height, width: width }}
               key={`page${i}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height={columnHeight}
-                width={columnWidth}
+                width={width}
               >
                 {sText}
               </svg>
@@ -207,11 +211,19 @@ const LessonDisplay = (props) => {
           let linesOfLinks = linesToLinks(lines);
           pages.push(drawSvg(linesOfLinks, x, i));
         }
+        
+        let prevPageNum;
+        const pageNum = pages.length
 
+        if (lessonPages) prevPageNum = lessonPages.length
         setLessonPages(pages);
+        if (prevPageNum > 0) {
+          const newPageNumber = Math.round(currentPage * (pageNum / prevPageNum))
+          if (newPageNumber > 0) setCurrentPage(newPageNumber)
+        }
       }
     },
-    [props.text, props.isLoading, props.status, wordHandler]
+    [props.text, props.isLoading, props.status, wordHandler, currentPage, lessonPages]
   );
 
   const { ref } = useResizeDetector({ onResize });

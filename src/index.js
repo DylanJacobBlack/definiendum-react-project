@@ -1,8 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { CloudinaryContext } from "cloudinary-react";
 
 import { AuthContextProvider } from "./store/auth-context";
 import "./index.css";
@@ -11,7 +12,9 @@ ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
       <BrowserRouter>
-        <App />
+        <CloudinaryContext cloudName="dqlx6iqqt">
+          <App />
+        </CloudinaryContext>
       </BrowserRouter>
     </AuthContextProvider>
   </React.StrictMode>,
