@@ -1,17 +1,17 @@
 .lesson {
   background-color: rgb(255, 255, 255);
   border: 0.2rem solid black;
-  border-radius: 0rem 2rem 2rem 0rem;
+  border-radius: 0rem 2rem 0rem 2rem;
   overflow: hidden;
   display: flex;
 }
 
-.lesson img {
-  width: 8rem;
-  background-size: cover;
-  vertical-align: bottom;
+.image {
+  width: 163px;
+  height: 195px;
+  background-color: rgb(246, 215, 255);
   border-right: solid black 0.2rem;
-  border-bottom: solid black 0.2rem;
+  overflow: hidden;
 }
 
 .lesson h2,
@@ -28,11 +28,16 @@ h3 {
 }
 
 .level {
+  height: 100%;
   padding: .6rem;
   font-size: medium;
+  font-weight: bolder;
   flex-shrink: 1;
   border-right: .2rem solid black;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+
 }
 
 .level1 {
@@ -49,9 +54,15 @@ h3 {
 
 .level4 {
   background-color: rgb(134, 26, 134);
+  color: white;
 }
 
 .level5 {
+  background-color: rgb(87, 1, 87);
+  color: white;
+}
+
+.level6 {
   background-color: rgb(87, 1, 87);
   color: white;
 }

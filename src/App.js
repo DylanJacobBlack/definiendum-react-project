@@ -1,5 +1,6 @@
 import React, { Suspense, useContext, Fragment } from "react";
 import { Route, Switch, useHistory, Redirect } from "react-router-dom";
+
 import "./App.module.css";
 
 import NavBar from "./components/NavBar/NavBar";
@@ -22,7 +23,6 @@ function App() {
 
   async function addLessonHandler(formData) {
     try {
-      console.log("trying")
       const response = await fetch("https://definiens-api.herokuapp.com/api/v1/lessons", 
       {
         method: "POST",

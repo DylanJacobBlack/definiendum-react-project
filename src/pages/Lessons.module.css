@@ -3,7 +3,7 @@
   min-height: calc(100vh - 4.2rem);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 25rem));
-  grid-auto-rows: 16rem;
+  grid-auto-rows: 15rem;
   gap: 2rem;
   padding-top: 1.5rem;
   padding-bottom: 3rem;

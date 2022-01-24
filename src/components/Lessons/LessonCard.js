@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { Image } from "cloudinary-react";
+import { Image, Transformation } from "cloudinary-react";
 
 import classes from "./LessonCard.module.css";
 
-const Lesson = (props) => {
+const LessonCard = (props) => {
   const truncate = () => {
     if (props.text?.length > 500) {
       return `${props.text.substr(0, props.text.lastIndexOf(" ", 500))}...`;
@@ -32,13 +32,18 @@ const Lesson = (props) => {
     }
   };
 
+  const url = props.url.match(
+    /(?!\/)[^/]*(?=\.jpg|.jpeg|.png|.gif|.svg|.tiff)/g
+  )[0];
+
   return (
     <div className={classes.lesson}>
       <Link to={`/lessons/${props.id}`}>
-        <Image
-          cloudName="dqlx6iqqt"
-          publicId="https://res.cloudinary.com/dqlx6iqqt/image/upload/v1642902680/development/18ahxq2hrhcohrfetnmh7m9e1215.jpg"
-        />
+        <div className={classes.image}>
+          <Image publicId={url} alt="lesson image">
+            <Transformation height="195" width="160" crop="fill" />
+          </Image>
+        </div>
         <h3 className={`${classes.level} ${classes[`level${props.level}`]}`}>
           {getLevel(props.level)}
         </h3>
@@ -53,4 +58,4 @@ const Lesson = (props) => {
   );
 };
 
-export default Lesson;
+export default LessonCard;

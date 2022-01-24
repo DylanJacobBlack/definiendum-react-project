@@ -83,7 +83,6 @@ const NewLesson = (props) => {
               <select
                 id="language"
                 type="text"
-                ref={titleInputRef}
                 className={
                   !formIsValid && enteredTitleBlurred ? classes.invalid : ""
                 }
@@ -103,7 +102,6 @@ const NewLesson = (props) => {
               <select
                 id="language"
                 type="text"
-                ref={titleInputRef}
                 className={
                   !formIsValid && enteredTitleBlurred ? classes.invalid : ""
                 }

@@ -1,27 +1,17 @@
-.lesson-pic {
-  overflow: hidden;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-  border: solid 2px black;
-  height: 15rem;
-}
-
 .sidebar {
   display: none;
 }
 
-img {
-  width: 100%;
-}
-
 @media (min-width: 1024px) {
   .sidebar {
-    background-color: rgb(186, 212, 197);
-    width: 16%;
+    background-color: rgb(216, 250, 230);
     height: 100%;
-    box-shadow: 0.2rem 0 0.5rem rgb(131, 131, 131);
-    border-right: solid 0.2rem rgb(171, 204, 184);
+    border-right: .2rem solid black;
     display: block;
-    padding: 1rem;
+    width: 11.5rem;
+  }
+  .info {
+    padding: .6rem;
+    font-size: medium;
   }
 }

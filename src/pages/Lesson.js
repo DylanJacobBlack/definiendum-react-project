@@ -53,7 +53,7 @@ const Lesson = () => {
       )} */}
       {status !== "" && <h1>{status}</h1>}
       {!isLoading && status === "" && (
-        <SideBar title={lesson.title} isLoading={isLoading} status={status} />
+        <SideBar title={lesson.title} url={lesson.url} isLoading={isLoading} status={status} />
       )}
       {!isLoading && status === "" && (
         <LessonDisplay
