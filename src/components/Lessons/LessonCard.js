@@ -33,7 +33,6 @@ const LessonCard = (props) => {
   };
 
   let url;
-  console.log(props.url)
   if (props.url) {
     url = props.url.match(
       /(?!\/)[^/]*(?=\.jpg|.jpeg|.png|.gif|.svg|.tiff)/g
