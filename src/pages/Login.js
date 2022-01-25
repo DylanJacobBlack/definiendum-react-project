@@ -79,7 +79,7 @@ const Login = () => {
     }
     if (
       createMode &&
-      enteredData.user.password === passwordConfInputRef.current.value.trim()
+      enteredData.user.password !== passwordConfInputRef.current.value.trim()
     ) {
       setPasswordConfIsValid(false);
       setFeedbackMessage("Password confirmation must match.");
@@ -144,9 +144,17 @@ const Login = () => {
     submitMessage = "Create";
   }
 
+  const onFocusHandler = () => {
+    setFeedbackMessage(null)
+    setUsernameIsValid(true);
+    setEmailIsValid(true);
+    setPasswordIsValid(true);
+    setPasswordConfIsValid(true);
+  }
+
   return (
     <Form>
-      <form className={classes.controls}>
+      <form className={classes.controls} onFocus={onFocusHandler}>
         {createMode && (
           <div className={classes.control}>
             <label>Username</label>
@@ -177,7 +185,7 @@ const Login = () => {
           <div className={classes.control}>
             <label>Password confirmation</label>
             <input
-              type="password-confirmation"
+              type="password"
               ref={passwordConfInputRef}
               className={passwordConfIsValid ? "" : classes.invalid}
             />
