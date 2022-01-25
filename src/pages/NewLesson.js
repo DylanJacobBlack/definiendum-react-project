@@ -10,6 +10,7 @@ const NewLesson = (props) => {
   
   const titleInputRef = useRef();
   const textInputRef = useRef();
+  const levelInputRef = useRef();
   const pictureInputRef = useRef();
   // const audioInputRef = useRef();
 
@@ -26,9 +27,11 @@ const NewLesson = (props) => {
 
     const enteredTitle = titleInputRef.current.value.trim();
     const enteredText = textInputRef.current.value.trim();
+    const enteredLevel = levelInputRef.current.value;
 
     formData.append("lesson[title]", enteredTitle);
     formData.append("lesson[text]", enteredText);
+    formData.append("lesson[diff_lev]", enteredLevel);
     formData.append("lesson[picture]", picture);
     formData.append("lesson[user_id]", 4);
     formData.append("lesson[language_id]", 6);
@@ -109,6 +112,7 @@ const NewLesson = (props) => {
                 className={
                   !formIsValid && enteredTitleBlurred ? classes.invalid : ""
                 }
+                ref={levelInputRef}
                 onBlur={onBlurHandler}
                 onFocus={onFocusHandler}
                 name="language"
