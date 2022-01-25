@@ -3,9 +3,12 @@ import classes from "./SideBar.module.css";
 import { Image, Transformation } from "cloudinary-react";
 
 const SideBar = (props) => {
-  const url = props.url.match(
-    /(?!\/)[^/]*(?=\.jpg|.jpeg|.png|.gif|.svg|.tiff)/g
-  )[0];
+  let url;
+  if (props.url) {
+    url = props.url.match(
+      /(?!\/)[^/]*(?=\.jpg|.jpeg|.png|.gif|.svg|.tiff)/g
+    )[0];
+  }
 
   return (
     <div className={classes.sidebar}>

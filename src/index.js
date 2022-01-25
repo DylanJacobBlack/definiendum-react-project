@@ -12,7 +12,7 @@ ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
       <BrowserRouter>
-        <CloudinaryContext cloudName="dqlx6iqqt">
+        <CloudinaryContext cloudName="hxgqxwxqv">
           <App />
         </CloudinaryContext>
       </BrowserRouter>

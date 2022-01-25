@@ -32,9 +32,13 @@ const LessonCard = (props) => {
     }
   };
 
-  const url = props.url.match(
-    /(?!\/)[^/]*(?=\.jpg|.jpeg|.png|.gif|.svg|.tiff)/g
-  )[0];
+  let url;
+  console.log(props.url)
+  if (props.url) {
+    url = props.url.match(
+      /(?!\/)[^/]*(?=\.jpg|.jpeg|.png|.gif|.svg|.tiff)/g
+    )[0];
+  }
 
   return (
     <div className={classes.lesson}>
