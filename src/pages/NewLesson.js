@@ -3,11 +3,16 @@ import { useRef, useState } from "react";
 import Form from "../components/UI/Form";
 import classes from "./NewLesson.module.css";
 
+// import AuthContext from "../store/auth-context";
+
 const NewLesson = (props) => {
+  // const authCtx = useContext(AuthContext);
+  
   const titleInputRef = useRef();
   const textInputRef = useRef();
+  const levelInputRef = useRef();
   const pictureInputRef = useRef();
-  const audioInputRef = useRef();
+  // const audioInputRef = useRef();
 
   const [formIsValid, setFormIsValid] = useState(false);
   const [formTouched, setFormTouched] = useState(false);
@@ -22,12 +27,14 @@ const NewLesson = (props) => {
 
     const enteredTitle = titleInputRef.current.value.trim();
     const enteredText = textInputRef.current.value.trim();
+    const enteredLevel = levelInputRef.current.value;
 
     formData.append("lesson[title]", enteredTitle);
     formData.append("lesson[text]", enteredText);
+    formData.append("lesson[diff_lev]", enteredLevel);
     formData.append("lesson[picture]", picture);
-    formData.append("lesson[user_id]", 1);
-    formData.append("lesson[language_id]", 1);
+    formData.append("lesson[user_id]", 4);
+    formData.append("lesson[language_id]", 6);
 
     console.log(...formData.entries());
 
@@ -90,11 +97,11 @@ const NewLesson = (props) => {
                 onFocus={onFocusHandler}
                 name="language"
               >
-                <option value="chinese">Chinese</option>
+                {/* <option value="chinese">Chinese</option> */}
                 <option value="english">English</option>
-                <option value="french">French</option>
+                {/* <option value="french">French</option>
                 <option value="german">German</option>
-                <option value="spanish">Spansih</option>
+                <option value="spanish">Spansih</option> */}
               </select>
             </div>
             <div className={classes.control}>
@@ -105,6 +112,7 @@ const NewLesson = (props) => {
                 className={
                   !formIsValid && enteredTitleBlurred ? classes.invalid : ""
                 }
+                ref={levelInputRef}
                 onBlur={onBlurHandler}
                 onFocus={onFocusHandler}
                 name="language"
@@ -132,7 +140,7 @@ const NewLesson = (props) => {
                 name="picture"
               />
             </div>
-            <div className={classes.control}>
+            {/* <div className={classes.control}>
               <label>Audio</label>
               <input
                 id="audio"
@@ -144,7 +152,7 @@ const NewLesson = (props) => {
                 onBlur={onBlurHandler}
                 onFocus={onFocusHandler}
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className={classes.control}>

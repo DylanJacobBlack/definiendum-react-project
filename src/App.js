@@ -31,7 +31,7 @@ function App() {
         },
         body: formData
       });
-      console.log("RESPONSE!!" + response);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

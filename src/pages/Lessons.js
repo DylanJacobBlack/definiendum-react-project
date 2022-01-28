@@ -44,8 +44,6 @@ const Lessons = () => {
     status = error;
   }
 
-  console.log(lessons)
-
   return (
     <div className={classes.lessons}>
       {isLoading && (
