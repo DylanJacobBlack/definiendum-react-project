@@ -22,13 +22,27 @@
   font-size: large;
 }
 
-.dropdown {
+.dropdown-btn {
   display: inline;
   font-size: 250%;
 }
 
+.dropdown-links {
+  border-top: .1rem solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(80, 52, 80);
+  width: 100%;
+  padding: 1rem;
+}
+
+.dropdown-link {
+  padding: 0.5rem;
+}
+
 .links {
-  display: none
+  display: none;
 }
 
 .grower {
@@ -39,7 +53,41 @@
   display: none;
 }
 
+.links a:link,
+.dropdown-links a:link {
+  font-family: "Ubuntu", sans-serif;
+  font-size: large;
+  margin: auto;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  text-decoration: none;
+  color: rgb(207, 207, 207);
+}
+
+.links a:visited,
+.dropdown-links a:visited {
+  color: rgb(207, 207, 207);
+}
+
+.links a:hover,
+.links a:active,
+.dropdown-links a:hover,
+.dropdown-links a:active {
+  padding-bottom: 0.2rem;
+  color: rgb(255, 255, 255);
+}
+
+.links a.active,
+.dropdown-links a.active {
+  padding-bottom: 0.2rem;
+  color: rgb(255, 255, 255);
+  border-bottom: 1px solid whitesmoke;
+}
+
 @media (min-width: 768px) {
+  .dropdown-links {
+    display: hidden;
+  }
 
   .btn {
     background-color: rgb(207, 207, 207);
@@ -63,31 +111,6 @@
     margin-right: 2rem;
   }
 
-  .links a:link {
-    font-family: "Ubuntu", sans-serif;
-    font-size: large;
-    margin: auto;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    text-decoration: none;
-    color: rgb(207, 207, 207);
-  }
-
-  .links a:visited {
-    color: rgb(207, 207, 207);
-  }
-
-  .links a:hover,
-  .links a:active {
-    padding-bottom: 0.2rem;
-    color: rgb(255, 255, 255);
-  }
-
-  .links a.active {
-    padding-bottom: 0.2rem;
-    color: rgb(255, 255, 255);
-    border-bottom: 1px solid whitesmoke;
-  }
   .logo-text {
     font-family: "Righteous", Arial, Helvetica, sans-serif;
     color: rgb(207, 207, 207);
@@ -96,7 +119,7 @@
     width: 13.5rem;
     font-size: x-large;
   }
-  .dropdown {
+  .dropdown-btn {
     display: none;
   }
 }
