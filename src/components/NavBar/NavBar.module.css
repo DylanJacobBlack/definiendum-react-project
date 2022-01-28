@@ -86,7 +86,7 @@
 
 @media (min-width: 768px) {
   .dropdown-links {
-    display: hidden;
+    display: none !important;
   }
 
   .btn {
