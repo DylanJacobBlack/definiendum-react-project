@@ -23,19 +23,21 @@ function App() {
 
   async function addLessonHandler(formData) {
     try {
-      const response = await fetch("https://definiens-api.herokuapp.com/api/v1/lessons", 
-      {
-        method: "POST",
-        headers: {
-          accepts: "application/json"
-        },
-        body: formData
-      });
+      const response = await fetch(
+        "https://definiens-api.herokuapp.com/api/v1/lessons",
+        {
+          method: "POST",
+          headers: {
+            accepts: "application/json",
+          },
+          body: formData,
+        }
+      );
       console.log(response);
     } catch (error) {
       console.log(error);
     }
-    history.push("/");
+    history.push("/lessons");
   }
 
   return (
@@ -44,15 +46,17 @@ function App() {
       {isLoggedIn && (
         <Suspense
           fallback={
-            <img
-              className="spinner"
-              src={loadingSpinner}
-              alt="Loading spinner"
-            />
+            <div className="spinner-container">
+              <img
+                className="spinner"
+                src={loadingSpinner}
+                alt="Loading spinner"
+              />
+            </div>
           }
         >
           <Switch>
-            <Route path="/" exact>
+            <Route path="/lessons" exact>
               <Lessons />
             </Route>
             <Route path="/new">
@@ -65,23 +69,41 @@ function App() {
               <Lesson />
             </Route>
             <Route path="/*">
-              <Redirect to="/" />
+              <Redirect to="/lessons" />
             </Route>
           </Switch>
         </Suspense>
       )}
       {!isLoggedIn && (
-        <Switch>
-          <Route path="/" exact>
-            <Welcome />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/*">
-            <Redirect to="/" />
-          </Route>
-        </Switch>
+        <Suspense
+          fallback={
+            <div className="spinner-container">
+              <img
+                className="spinner"
+                src={loadingSpinner}
+                alt="Loading spinner"
+              />
+            </div>
+          }
+        >
+          <Switch>
+            <Route path="/lessons" exact>
+              <Lessons />
+            </Route>
+            <Route path="/lessons/:lessonId">
+              <Lesson />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/" exact>
+              <Welcome />
+            </Route>
+            <Route path="/*">
+              <Redirect to="/lessons" />
+            </Route>
+          </Switch>
+        </Suspense>
       )}
     </Fragment>
   );

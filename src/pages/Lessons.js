@@ -1,8 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 
-
-
-import AuthContext from "../store/auth-context";
+// import AuthContext from "../store/auth-context";
 import classes from "./Lessons.module.css";
 import LessonCard from "../components/Lessons/LessonCard";
 import loadingSpinner from "../assets/spinner.jpg";
@@ -12,31 +10,29 @@ const Lessons = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
+  // const authCtx = useContext(AuthContext);
+  // const isLoggedIn = authCtx.isLoggedIn;
 
   useEffect(() => {
-    if (isLoggedIn) {
-      (async function () {
-        try {
-          setIsLoading(true);
-          setError(null);
-          const response = await fetch(
-            "https://definiens-api.herokuapp.com/api/v1/lessons"
-          );
+    (async function () {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetch(
+          "https://definiens-api.herokuapp.com/api/v1/lessons"
+        );
 
-          if (!response.ok) {
-            throw new Error("Something went wrong.");
-          }
-          const data = await response.json();
-          setLessons(data.lessons);
-        } catch (error) {
-          setError(error.message);
+        if (!response.ok) {
+          throw new Error("Something went wrong.");
         }
-        setIsLoading(false);
-      })();
-    }
-  }, [isLoggedIn]);
+        const data = await response.json();
+        setLessons(data.lessons);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    })();
+  }, []);
 
   let status = "";
 

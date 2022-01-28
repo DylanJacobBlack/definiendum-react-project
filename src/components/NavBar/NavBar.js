@@ -36,19 +36,12 @@ const NavBar = () => {
             <FontAwesomeIcon icon={faBars} onClick={dropdownHandler} />
           </div>
           <div className={classes.links}>
-            {isLoggedIn && (
-              <NavLink activeClassName={classes.active} to="/" exact>
-                lessons
-              </NavLink>
-            )}
+            <NavLink activeClassName={classes.active} to="/lessons">
+              lessons
+            </NavLink>
             {isLoggedIn && (
               <NavLink activeClassName={classes.active} to="/new">
                 new lesson
-              </NavLink>
-            )}
-            {!isLoggedIn && (
-              <NavLink activeClassName={classes.active} to="/welcome">
-                welcome
               </NavLink>
             )}
             {/* {isLoggedIn && (
@@ -76,24 +69,22 @@ const NavBar = () => {
       </nav>
       {dropdown && (
         <div className={classes["dropdown-links"]}>
-          {isLoggedIn && (
-            <div className={classes["dropdown-link"]}>
-              <NavLink activeClassName={classes.active} to="/" exact>
-                lessons
-              </NavLink>
-            </div>
-          )}
-          {isLoggedIn && (
-            <div className={classes["dropdown-link"]}>
-              <NavLink activeClassName={classes.active} to="/new">
-                new lesson
-              </NavLink>
-            </div>
-          )}
           {!isLoggedIn && (
             <div className={classes["dropdown-link"]}>
               <NavLink activeClassName={classes.active} to="/welcome">
                 welcome
+              </NavLink>
+            </div>
+          )}
+          <div className={classes["dropdown-link"]}>
+            <NavLink activeClassName={classes.active} to="/lessons">
+              lessons
+            </NavLink>
+          </div>
+          {isLoggedIn && (
+            <div className={classes["dropdown-link"]}>
+              <NavLink activeClassName={classes.active} to="/new">
+                new lesson
               </NavLink>
             </div>
           )}
