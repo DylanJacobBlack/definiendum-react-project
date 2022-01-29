@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 // import AuthContext from "../store/auth-context";
+import LangContext from "../store/lang-context";
+
 import classes from "./Lessons.module.css";
 import LessonCard from "../components/Lessons/LessonCard";
 import loadingSpinner from "../assets/spinner.jpg";
@@ -12,6 +14,9 @@ const Lessons = () => {
 
   // const authCtx = useContext(AuthContext);
   // const isLoggedIn = authCtx.isLoggedIn;
+  const langCtx = useContext(LangContext);
+
+
 
   useEffect(() => {
     (async function () {
