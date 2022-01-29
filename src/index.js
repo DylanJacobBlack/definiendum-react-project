@@ -7,15 +7,18 @@ import { CloudinaryContext } from "cloudinary-react";
 
 import { AuthContextProvider } from "./store/auth-context";
 import "./index.css";
+import { LangContextProvider } from "./store/lang-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <BrowserRouter>
-        <CloudinaryContext cloudName="hxgqxwxqv">
-          <App />
-        </CloudinaryContext>
-      </BrowserRouter>
+      <LangContextProvider>
+        <BrowserRouter>
+          <CloudinaryContext cloudName="hxgqxwxqv">
+            <App />
+          </CloudinaryContext>
+        </BrowserRouter>
+      </LangContextProvider>
     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

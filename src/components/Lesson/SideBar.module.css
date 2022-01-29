@@ -4,11 +4,11 @@
 
 @media (min-width: 1024px) {
   .sidebar {
-    background-color: rgb(216, 250, 230);
+    background-color: white;
     height: 100%;
-    border-right: .2rem solid black;
+    border: .05rem solid black;
     display: block;
-    width: 11.5rem;
+    width: 11rem;
   }
   .info {
     padding: .6rem;
