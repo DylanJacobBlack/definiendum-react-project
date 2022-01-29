@@ -35,7 +35,7 @@ const LessonDisplay = (props) => {
       .trim()
       .replace(/[,./?;':~&%$#@*^|]/g, "");
     (async function () {
-      const response = await fetch("http://localhost:3000/word", {
+      const response = await fetch("https://definiens-api.herokuapp.com/word", {
         method: "POST",
         body: JSON.stringify({
           text: phrase,
