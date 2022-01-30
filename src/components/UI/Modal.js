@@ -6,9 +6,9 @@ const Backdrop = (props) => {
   return <div className={classes.backdrop} onClick={props.onHide} />;
 };
 
-const ModalOverlay = (props) => {
+const ModalOverlay = (props) => { 
   return (
-    <div className={classes.modal}>
+    <div className={`${classes.modal} ${props.topClick && classes["top-click"]}`}>
       <div className={classes.content}>{props.children}</div>
     </div>
   );
@@ -18,7 +18,7 @@ const Modal = (props) => {
   return (
     <Fragment>
       <Backdrop onHide={props.onHide} />
-      <ModalOverlay>{props.children}</ModalOverlay>
+      <ModalOverlay topClick={props.topClick}>{props.children}</ModalOverlay>
     </Fragment>
   );
 };

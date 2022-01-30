@@ -6,8 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import { CloudinaryContext } from "cloudinary-react";
 
 import { AuthContextProvider } from "./store/auth-context";
-import "./index.css";
 import { LangContextProvider } from "./store/lang-context";
+import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
