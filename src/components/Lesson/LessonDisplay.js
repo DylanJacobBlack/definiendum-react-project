@@ -13,6 +13,7 @@ const LessonDisplay = (props) => {
   const [lessonPages, setLessonPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [modalSwitch, setModalSwitch] = useState(false);
+  const [topClick, setTopClick] = useState(null);
   const [translation, setTranslation] = useState({
     phrase: "",
     translation: "",
@@ -29,8 +30,13 @@ const LessonDisplay = (props) => {
   const lineHeight = 33;
 
   const wordHandler = useCallback((event) => {
-    setDefIsLoading(true);
     setModalSwitch(true);
+    if (event.clientY < ((window.innerHeight - 30) / 2)) {
+      setTopClick(true);
+    } else{
+      setTopClick(false);
+    }
+    setDefIsLoading(true);
     const phrase = event.target.textContent
       .trim()
       .replace(/[,./?;':~&%$#@*^|]/g, "");
@@ -39,14 +45,14 @@ const LessonDisplay = (props) => {
         method: "POST",
         body: JSON.stringify({
           text: phrase,
-          language: "la",
+          language: "es",
         }),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
       setTranslation({ phrase: phrase, translation: data.translation });
+      setDefIsLoading(false);
     })();
-    setDefIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -70,16 +76,17 @@ const LessonDisplay = (props) => {
     (width, height) => {
       if (props.isLoading === false && props.status === "") {
         const pages = [];
-        
+
         let maxWidth = 300;
         let columnHeight = 200;
-        if (height - pagePaddingTop - pagePaddingBottom > 200) columnHeight = height - pagePaddingTop - pagePaddingBottom;
-        if (width - pagePaddingLeft - pagePaddingRight > 300) maxWidth = width - pagePaddingLeft - pagePaddingRight;
+        if (height - pagePaddingTop - pagePaddingBottom > 200)
+          columnHeight = height - pagePaddingTop - pagePaddingBottom;
+        if (width - pagePaddingLeft - pagePaddingRight > 300)
+          maxWidth = width - pagePaddingLeft - pagePaddingRight;
 
         const maxLinesPerPage = Math.round(columnHeight / lineHeight) - 2;
         const x = pagePaddingLeft;
         const y = lineHeight;
-        
 
         // # words that have been displayed
         //(used when ordering a new page of words)
@@ -211,19 +218,28 @@ const LessonDisplay = (props) => {
           let linesOfLinks = linesToLinks(lines);
           pages.push(drawSvg(linesOfLinks, x, i));
         }
-        
-        let prevPageNum;
-        const pageNum = pages.length
 
-        if (lessonPages) prevPageNum = lessonPages.length
+        let prevPageNum;
+        const pageNum = pages.length;
+
+        if (lessonPages) prevPageNum = lessonPages.length;
         setLessonPages(pages);
         if (prevPageNum > 0) {
-          const newPageNumber = Math.round(currentPage * (pageNum / prevPageNum))
-          if (newPageNumber > 0) setCurrentPage(newPageNumber)
+          const newPageNumber = Math.round(
+            currentPage * (pageNum / prevPageNum)
+          );
+          if (newPageNumber > 0) setCurrentPage(newPageNumber);
         }
       }
     },
-    [props.text, props.isLoading, props.status, wordHandler, currentPage, lessonPages]
+    [
+      props.text,
+      props.isLoading,
+      props.status,
+      wordHandler,
+      currentPage,
+      lessonPages,
+    ]
   );
 
   const { ref } = useResizeDetector({ onResize });
@@ -247,6 +263,7 @@ const LessonDisplay = (props) => {
       {modalSwitch && (
         <Definition
           isLoading={defIsLoading}
+          topClick={topClick}
           phrase={translation.phrase}
           translation={translation.translation}
           onHide={onHideHandler}
