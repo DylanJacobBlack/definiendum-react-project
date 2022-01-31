@@ -1,6 +1,19 @@
+import { useContext } from "react";
+// import { useHistory } from "react-router-dom"
+
+import LangContext from "../store/lang-context";
+
 import classes from "./Welcome.module.css";
 
+
+
 const Welcome = () => {
+  const langCtx = useContext(LangContext)
+  // const history = useHistory();
+  
+  // if (langCtx.language) history.push("/lessons")
+  langCtx.startWelcome();
+
   return (
     <div className={classes.welcome}>
       <div className={classes.header} alt="girl reading"></div>

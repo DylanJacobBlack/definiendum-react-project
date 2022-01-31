@@ -1,4 +1,4 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
 import { useContext, useState, Fragment } from "react";
 import Select from "react-select";
 
@@ -6,11 +6,12 @@ import AuthContext from "../../store/auth-context";
 import LangContext from "../../store/lang-context";
 import classes from "./NavBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLanguage } from "@fortawesome/free-solid-svg-icons";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faLanguage, faBars, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
+
   const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   const isLoggedIn = authCtx.isLoggedIn;
 
@@ -32,26 +33,68 @@ const NavBar = () => {
   return (
     <LangContext.Consumer>
       {(langCtx) => {
-        
         const selectLanguageHandler = (event) => {
-          console.dir(event);
-          // langCtx.changeLanguage(language);
+          if (event.value) {
+            langCtx.changeLanguage(event.value);
+            langCtx.endWelcome();
+            history.push("/lessons")
+          }
+        };
+
+        const defaultValue = options.findIndex(
+          (language) => language.value === langCtx.language
+        );
+
+        const customStyles = {
+          control: (provided) => ({
+            ...provided,
+            backgroundColor: "rgb(207, 207, 207)",
+            padding: ".2rem",
+            cursor: "pointer",
+            border: ".1rem solid black",
+            color: "black",
+            fontSize: "larger",
+          }),
+          option: (provided, state) => ({
+            ...provided,
+            // border: "1rem solid purple",
+            // color: state.isSelected ? "red" : "blue",
+            // padding: 20,
+          }),
         };
 
         return (
           <Fragment>
             <nav className={classes["nav-backdrop"]}>
               <div className={classes.menu}>
-                <div className={classes["logo-text"]}>
-                  <h1>
-                    <FontAwesomeIcon icon={faLanguage} />
-                  </h1>
-                  <h1>definiens</h1>
+                <Select
+                  defaultValue={options[defaultValue]}
+                  options={options}
+                  onChange={selectLanguageHandler}
+                  styles={customStyles}
+                  menuColor="purple"
+                  isDisabled={!langCtx.disabled}
+                />
+                <div className={classes.grower}>
+                  <div className={classes.message}>
+                    {langCtx.welcome && (
+                      <p>
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                        &nbsp;&nbsp;Select a language to get started!
+                      </p>
+                    )}
+                  </div>
+                  <div className={classes["logo-text-box"]}>
+                    <div className={classes["logo-text"]}>
+                      <h1>
+                        <FontAwesomeIcon icon={faLanguage} />
+                      </h1>
+                      <h1>definiens</h1>
+                    </div>
+                  </div>
+                  {/* <h1>{langCtx.language}</h1> */}
+                  <div></div>
                 </div>
-                <div className={classes.grower}></div>
-                <Select options={options} onSelect={selectLanguageHandler} />
-                {/* <h1>{langCtx.language}</h1> */}
-                <div className={classes.grower}></div>
                 <div className={classes["dropdown-btn"]}>
                   <FontAwesomeIcon icon={faBars} onClick={dropdownHandler} />
                 </div>

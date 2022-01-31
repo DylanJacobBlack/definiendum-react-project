@@ -13,15 +13,6 @@
   justify-content: center;
 }
 
-.logo-text {
-  color: rgb(207, 207, 207);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 10.5rem;
-  font-size: large;
-}
-
 .dropdown-btn {
   display: inline;
   font-size: 250%;
@@ -47,7 +38,31 @@
 
 .grower {
   flex-grow: 1;
+  display: grid;
+  grid-template-columns: 4fr 4fr 3.6fr;
+  justify-content: center;
 }
+
+.logo-text {
+  font-family: "Righteous", Arial, Helvetica, sans-serif; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 10rem;
+  color: rgb(207, 207, 207);
+  font-size: large;
+}
+
+.logo-text-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;  
+}
+
 
 .btn {
   display: none;
@@ -80,11 +95,27 @@
 .links a.active,
 .dropdown-links a.active {
   padding-bottom: 0.2rem;
-  color: rgb(255, 255, 255);
   border-bottom: 1px solid whitesmoke;
 }
 
+.message {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding-left: .4rem;
+  padding-right: .4rem;
+  margin-left: .4rem;
+  margin-right: .4rem;
+  font-size: small;
+  animation: blinker 1s linear infinite;
+}
+
 @media (min-width: 768px) {
+  .message {
+    font-size: medium;
+  }
+
+
   .dropdown-links {
     display: none !important;
   }
@@ -111,15 +142,34 @@
     margin-right: 2rem;
   }
 
+  .logo-text-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;  
+  }
+
   .logo-text {
     font-family: "Righteous", Arial, Helvetica, sans-serif;
     color: rgb(207, 207, 207);
     display: flex;
     justify-content: space-between;
-    width: 13.5rem;
+    width: 13rem;
+    color: rgb(207, 207, 207);
     font-size: x-large;
   }
+
   .dropdown-btn {
     display: none;
+  }
+  
+}
+
+@keyframes blinker {
+  85% {
+    opacity: .5;
   }
 }

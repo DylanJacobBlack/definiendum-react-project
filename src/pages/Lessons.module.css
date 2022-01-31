@@ -9,3 +9,19 @@
   padding-bottom: 3rem;
   justify-content: center;
 }
+.status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.message{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: .2rem solid black;
+  border-radius: 2rem;
+  width: 75%;
+  height: 50%;
+  padding: 1rem;
+}

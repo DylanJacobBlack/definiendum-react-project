@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 
 // import AuthContext from "../store/auth-context";
 import LangContext from "../store/lang-context";
@@ -15,29 +16,40 @@ const Lessons = () => {
   // const authCtx = useContext(AuthContext);
   // const isLoggedIn = authCtx.isLoggedIn;
   const langCtx = useContext(LangContext);
-
-
+  const history = useHistory();
 
   useEffect(() => {
-    (async function () {
-      try {
-        setIsLoading(true);
-        setError(null);
-        const response = await fetch(
-          "https://definiens-api.herokuapp.com/api/v1/lessons"
-        );
+    langCtx.enable();
+  }, [langCtx]);
 
-        if (!response.ok) {
-          throw new Error("Something went wrong.");
+  useEffect(() => {
+    if (langCtx.language !== null) {
+      (async function () {
+        try {
+          setIsLoading(true);
+          setError(null);
+          const response = await fetch(
+            "https://definiens-api.herokuapp.com/api/v1/lessons"
+          );
+
+          if (!response.ok) {
+            throw new Error("Something went wrong.");
+          }
+          const data = await response.json();
+          console.log(data);
+          const filteredLessons = data.lessons.filter(
+            (lesson) => lesson.language.name === langCtx.language
+          );
+          setLessons(filteredLessons);
+        } catch (error) {
+          setError(error.message);
         }
-        const data = await response.json();
-        setLessons(data.lessons);
-      } catch (error) {
-        setError(error.message);
-      }
-      setIsLoading(false);
-    })();
-  }, []);
+        setIsLoading(false);
+      })();
+    } else (
+      history.push("/")
+    )
+  }, [langCtx.language, history]);
 
   let status = "";
 
@@ -52,8 +64,15 @@ const Lessons = () => {
           <img className="spinner" src={loadingSpinner} alt="Loading spinner" />
         </div>
       )}
-      {status !== "" && <h1>{status}</h1>}
+      {status !== "" && (
+        <div className={classes["status-container"]}>
+          <div className={classes.message}>
+            <h1>{status}</h1>
+          </div>
+        </div>
+      )}
       {!isLoading &&
+        langCtx.language !== null &&
         lessons.length > 0 &&
         lessons.map((lesson) => (
           <LessonCard

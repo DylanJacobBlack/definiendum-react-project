@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+
+import LangContext from "../store/lang-context";
 
 import classes from "./Lesson.module.css";
 import SideBar from "../components/Lesson/SideBar";
@@ -7,10 +9,15 @@ import LessonDisplay from "../components/Lesson/LessonDisplay";
 // import loadingSpinner from "../assets/spinner.jpg"
 
 const Lesson = () => {
+  const langCtx = useContext(LangContext);
   const params = useParams();
   const [lesson, setLesson] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    langCtx.disable();
+  }, [langCtx]);
 
   useEffect(() => {
     async function fetchLessonData() {
