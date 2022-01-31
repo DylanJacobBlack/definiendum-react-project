@@ -32,24 +32,56 @@ const NavBar = () => {
   return (
     <LangContext.Consumer>
       {(langCtx) => {
-        
         const selectLanguageHandler = (event) => {
-          console.dir(event);
-          // langCtx.changeLanguage(language);
+          langCtx.changeLanguage(event.value);
+        };
+
+        const defaultValue = options.findIndex(
+          (language) => language.value === langCtx.language
+        );
+
+        const customStyles = {
+          control: (provided) => ({
+            ...provided,
+            backgroundColor: "rgb(207, 207, 207)",
+            padding: ".2rem",
+            cursor: "pointer",
+            border: ".1rem solid black",
+            color: "black",
+            fontSize: "larger",
+          }),
+          option: (provided, state) => ({
+            ...provided,
+            // border: "1rem solid purple",
+            // color: state.isSelected ? "red" : "blue",
+            // padding: 20,
+          }),
+          singleValue: (provided, state) => {
+            const opacity = state.isDisabled ? 0.5 : 1;
+            const transition = "opacity 300ms";
+
+            return { ...provided, opacity, transition };
+          },
         };
 
         return (
           <Fragment>
             <nav className={classes["nav-backdrop"]}>
               <div className={classes.menu}>
+                <Select
+                  defaultValue={options[defaultValue]}
+                  options={options}
+                  onChange={selectLanguageHandler}
+                  styles={customStyles}
+                  menuColor="purple"
+                />
+                <div className={classes.grower}></div>
                 <div className={classes["logo-text"]}>
                   <h1>
                     <FontAwesomeIcon icon={faLanguage} />
                   </h1>
                   <h1>definiens</h1>
                 </div>
-                <div className={classes.grower}></div>
-                <Select options={options} onSelect={selectLanguageHandler} />
                 {/* <h1>{langCtx.language}</h1> */}
                 <div className={classes.grower}></div>
                 <div className={classes["dropdown-btn"]}>

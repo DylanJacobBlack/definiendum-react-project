@@ -31,13 +31,15 @@ const Lessons = () => {
           throw new Error("Something went wrong.");
         }
         const data = await response.json();
-        setLessons(data.lessons);
+        console.log(data)
+        const filteredLessons = data.lessons.filter((lesson) => lesson.language.name === langCtx.language)
+        setLessons(filteredLessons);
       } catch (error) {
         setError(error.message);
       }
       setIsLoading(false);
     })();
-  }, []);
+  }, [langCtx.language]);
 
   let status = "";
 

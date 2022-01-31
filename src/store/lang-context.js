@@ -7,16 +7,23 @@ const LangContext = React.createContext({
   
   export const LangContextProvider = (props) => {
 
-    const [language, setLanguage] = useState("Spanish");
+    const [language, setLanguage] = useState("spanish");
+    const [disabled, setDisabled] = useState(false);
     // const selectedLanguage = language;
 
     const changeLanguageHandler = (language) => {
         setLanguage(language);
     }
+    
+    const disableHandler = () => {
+      setDisabled(true);
+    }
   
     const contextValue = {
       language: language,
-      changeLanguage: changeLanguageHandler
+      disabled: disabled,
+      changeLanguage: changeLanguageHandler,
+      disable: disableHandler
     };
   
     return (
