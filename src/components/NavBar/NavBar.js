@@ -1,4 +1,4 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
 import { useContext, useState, Fragment } from "react";
 import Select from "react-select";
 
@@ -6,11 +6,12 @@ import AuthContext from "../../store/auth-context";
 import LangContext from "../../store/lang-context";
 import classes from "./NavBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLanguage } from "@fortawesome/free-solid-svg-icons";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faLanguage, faBars, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
+
   const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   const isLoggedIn = authCtx.isLoggedIn;
 
@@ -33,7 +34,11 @@ const NavBar = () => {
     <LangContext.Consumer>
       {(langCtx) => {
         const selectLanguageHandler = (event) => {
-          langCtx.changeLanguage(event.value);
+          if (event.value) {
+            langCtx.changeLanguage(event.value);
+            langCtx.endWelcome();
+            history.push("/lessons")
+          }
         };
 
         const defaultValue = options.findIndex(
@@ -70,15 +75,26 @@ const NavBar = () => {
                   menuColor="purple"
                   isDisabled={!langCtx.disabled}
                 />
-                <div className={classes.grower}></div>
-                <div className={classes["logo-text"]}>
-                  <h1>
-                    <FontAwesomeIcon icon={faLanguage} />
-                  </h1>
-                  <h1>definiens</h1>
+                <div className={classes.grower}>
+                  <div className={classes.message}>
+                    {langCtx.welcome && (
+                      <p>
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                        &nbsp;&nbsp;Select a language to get started!
+                      </p>
+                    )}
+                  </div>
+                  <div className={classes["logo-text-box"]}>
+                    <div className={classes["logo-text"]}>
+                      <h1>
+                        <FontAwesomeIcon icon={faLanguage} />
+                      </h1>
+                      <h1>definiens</h1>
+                    </div>
+                  </div>
+                  {/* <h1>{langCtx.language}</h1> */}
+                  <div></div>
                 </div>
-                {/* <h1>{langCtx.language}</h1> */}
-                <div className={classes.grower}></div>
                 <div className={classes["dropdown-btn"]}>
                   <FontAwesomeIcon icon={faBars} onClick={dropdownHandler} />
                 </div>
