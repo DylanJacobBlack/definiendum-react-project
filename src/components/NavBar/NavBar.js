@@ -56,12 +56,6 @@ const NavBar = () => {
             // color: state.isSelected ? "red" : "blue",
             // padding: 20,
           }),
-          singleValue: (provided, state) => {
-            const opacity = state.isDisabled ? .5 : 1;
-            const transition = "opacity 300ms";
-
-            return { ...provided, opacity, transition };
-          },
         };
 
         return (
