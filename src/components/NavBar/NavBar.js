@@ -57,7 +57,7 @@ const NavBar = () => {
             // padding: 20,
           }),
           singleValue: (provided, state) => {
-            const opacity = state.isDisabled ? 0.5 : 1;
+            const opacity = state.isDisabled ? .5 : 1;
             const transition = "opacity 300ms";
 
             return { ...provided, opacity, transition };
@@ -74,6 +74,7 @@ const NavBar = () => {
                   onChange={selectLanguageHandler}
                   styles={customStyles}
                   menuColor="purple"
+                  isDisabled={!langCtx.disabled}
                 />
                 <div className={classes.grower}></div>
                 <div className={classes["logo-text"]}>

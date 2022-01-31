@@ -16,7 +16,9 @@ const Lessons = () => {
   // const isLoggedIn = authCtx.isLoggedIn;
   const langCtx = useContext(LangContext);
 
-
+  useEffect(() => {
+    langCtx.enable();
+  }, [langCtx]);
 
   useEffect(() => {
     (async function () {
