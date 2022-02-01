@@ -6,10 +6,13 @@ import AuthContext from "../../store/auth-context";
 import LangContext from "../../store/lang-context";
 import classes from "./NavBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLanguage, faBars, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLanguage,
+  faBars,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
-
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
@@ -36,8 +39,7 @@ const NavBar = () => {
         const selectLanguageHandler = (event) => {
           if (event.value) {
             langCtx.changeLanguage(event.value);
-            langCtx.endWelcome();
-            history.push("/lessons")
+            history.replace("/lessons");
           }
         };
 
@@ -67,17 +69,19 @@ const NavBar = () => {
           <Fragment>
             <nav className={classes["nav-backdrop"]}>
               <div className={classes.menu}>
-                <Select
-                  defaultValue={options[defaultValue]}
-                  options={options}
-                  onChange={selectLanguageHandler}
-                  styles={customStyles}
-                  menuColor="purple"
-                  isDisabled={!langCtx.disabled}
-                />
+                <div className={classes["select-box"]}>
+                  <Select
+                    defaultValue={options[defaultValue]}
+                    options={options}
+                    onChange={selectLanguageHandler}
+                    styles={customStyles}
+                    menuColor="purple"
+                    isDisabled={!langCtx.disabled}
+                  />
+                </div>
                 <div className={classes.grower}>
                   <div className={classes.message}>
-                    {langCtx.welcome && (
+                    {!langCtx.language && (
                       <p>
                         <FontAwesomeIcon icon={faArrowLeft} />
                         &nbsp;&nbsp;Select a language to get started!
@@ -132,13 +136,6 @@ const NavBar = () => {
             </nav>
             {dropdown && (
               <div className={classes["dropdown-links"]}>
-                {!isLoggedIn && (
-                  <div className={classes["dropdown-link"]}>
-                    <NavLink activeClassName={classes.active} to="/welcome">
-                      welcome
-                    </NavLink>
-                  </div>
-                )}
                 <div className={classes["dropdown-link"]}>
                   <NavLink activeClassName={classes.active} to="/lessons">
                     lessons

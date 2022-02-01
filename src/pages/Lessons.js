@@ -36,7 +36,6 @@ const Lessons = () => {
             throw new Error("Something went wrong.");
           }
           const data = await response.json();
-          console.log(data);
           const filteredLessons = data.lessons.filter(
             (lesson) => lesson.language.name === langCtx.language
           );

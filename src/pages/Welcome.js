@@ -1,5 +1,5 @@
 import { useContext } from "react";
-// import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 import LangContext from "../store/lang-context";
 
@@ -9,10 +9,9 @@ import classes from "./Welcome.module.css";
 
 const Welcome = () => {
   const langCtx = useContext(LangContext)
-  // const history = useHistory();
+  const history = useHistory();
   
-  // if (langCtx.language) history.push("/lessons")
-  langCtx.startWelcome();
+  if (langCtx.language) history.replace("/lessons")
 
   return (
     <div className={classes.welcome}>
