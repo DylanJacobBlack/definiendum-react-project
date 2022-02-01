@@ -1,5 +1,7 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback, useContext } from "react";
 import { useResizeDetector } from "react-resize-detector";
+
+import LangAuth from "../../store/lang-context"
 
 import classes from "./LessonDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,8 +10,11 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Definition from "./Definition";
+import LangContext from "../../store/lang-context";
 
 const LessonDisplay = (props) => {
+  const langCtx = useContext(LangContext);
+
   const [lessonPages, setLessonPages] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [modalSwitch, setModalSwitch] = useState(false);
@@ -45,7 +50,7 @@ const LessonDisplay = (props) => {
         method: "POST",
         body: JSON.stringify({
           text: phrase,
-          language: "es",
+          language: langCtx.language,
         }),
         headers: { "Content-Type": "application/json" },
       });
