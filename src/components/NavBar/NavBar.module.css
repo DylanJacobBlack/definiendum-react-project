@@ -110,6 +110,11 @@
   animation: blinker 1s linear infinite;
 }
 
+.select-box {
+  flex-shrink: 0 !important;
+  /* min-width: 8rem; */
+}  
+
 @media (min-width: 768px) {
   .message {
     font-size: medium;
@@ -165,7 +170,6 @@
   .dropdown-btn {
     display: none;
   }
-  
 }
 
 @keyframes blinker {
