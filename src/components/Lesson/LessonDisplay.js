@@ -58,7 +58,7 @@ const LessonDisplay = (props) => {
       setTranslation({ phrase: phrase, translation: data.translation });
       setDefIsLoading(false);
     })();
-  }, []);
+  }, [langCtx.language]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
