@@ -56,7 +56,7 @@ const Login = () => {
       setUsernameIsValid(false);
       setFeedbackMessage("Username must be at least 6 characters.");
       return;
-    }
+    } 
     if (
       createMode &&
       !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(

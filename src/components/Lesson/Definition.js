@@ -23,7 +23,6 @@ const Definition = (props) => {
             translation: props.translation,
             known: "1",
             language: "",
-            // user: authCtx.userId,
             home_language: "en",
           }),
         });

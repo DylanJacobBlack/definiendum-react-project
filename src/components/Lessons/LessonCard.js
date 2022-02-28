@@ -44,7 +44,7 @@ const LessonCard = (props) => {
       <Link to={`/lessons/${props.id}`}>
         <div className={classes.image}>
           <Image publicId={url} alt="lesson image">
-            <Transformation height="195" width="160" crop="fill" />
+            <Transformation height="195" width="163" crop="fill" />
           </Image>
         </div>
         <h3 className={`${classes.level} ${classes[`level${props.level}`]}`}>

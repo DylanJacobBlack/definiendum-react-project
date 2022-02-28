@@ -1,7 +1,13 @@
-import React, { useRef, useEffect, useState, useCallback, useContext } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+} from "react";
 import { useResizeDetector } from "react-resize-detector";
 
-import LangAuth from "../../store/lang-context"
+import LangAuth from "../../store/lang-context";
 
 import classes from "./LessonDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -34,31 +40,37 @@ const LessonDisplay = (props) => {
   const approxWordsPerPage = 200;
   const lineHeight = 33;
 
-  const wordHandler = useCallback((event) => {
-    setModalSwitch(true);
-    if (event.clientY < ((window.innerHeight - 30) / 2)) {
-      setTopClick(true);
-    } else{
-      setTopClick(false);
-    }
-    setDefIsLoading(true);
-    const phrase = event.target.textContent
-      .trim()
-      .replace(/[,./?;':~&%$#@*^|]/g, "");
-    (async function () {
-      const response = await fetch("https://definiens-api.herokuapp.com/word", {
-        method: "POST",
-        body: JSON.stringify({
-          text: phrase,
-          language: langCtx.language,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await response.json();
-      setTranslation({ phrase: phrase, translation: data.translation });
-      setDefIsLoading(false);
-    })();
-  }, [langCtx.language]);
+  const wordHandler = useCallback(
+    (event) => {
+      setModalSwitch(true);
+      if (event.clientY < (window.innerHeight - 30) / 2) {
+        setTopClick(true);
+      } else {
+        setTopClick(false);
+      }
+      setDefIsLoading(true);
+      const phrase = event.target.textContent
+        .trim()
+        .replace(/[,./?;':~&%$#@*^|]/g, "");
+      (async function () {
+        const response = await fetch(
+          "https://definiens-api.herokuapp.com/word",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              text: phrase,
+              language: langCtx.language,
+            }),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const data = await response.json();
+        setTranslation({ phrase: phrase, translation: data.translation });
+        setDefIsLoading(false);
+      })();
+    },
+    [langCtx.language]
+  );
 
   useEffect(() => {
     const handleKeyDown = (event) => {

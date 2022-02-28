@@ -1,17 +1,18 @@
 .lesson {
   background-color: rgb(255, 255, 255);
-  border: 0.2rem solid black;
   border-radius: 0rem 2rem 0rem 2rem;
   overflow: hidden;
   display: flex;
+  box-shadow: .5rem .5rem #88888831;
+  border: .5rem solid black;
 }
 
 .image {
   width: 163px;
-  height: 195px;
+  height: 187px;
   background-color: rgb(246, 215, 255);
-  border-right: solid black 0.2rem;
   overflow: hidden;
+  justify-content: flex-start;
 }
 
 .lesson h2,
@@ -33,7 +34,6 @@ h3 {
   font-size: medium;
   font-weight: bolder;
   flex-shrink: 1;
-  border-right: .2rem solid black;
   display: flex;
   justify-content: center;
   text-transform: uppercase;
