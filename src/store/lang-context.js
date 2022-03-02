@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const LangContext = React.createContext({
-  language: "¿Conoces a ese chico?",
+  language: "",
   changeLanguage: (language) => {},
 });
 

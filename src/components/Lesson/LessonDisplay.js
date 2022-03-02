@@ -7,8 +7,6 @@ import React, {
 } from "react";
 import { useResizeDetector } from "react-resize-detector";
 
-import LangAuth from "../../store/lang-context";
-
 import classes from "./LessonDisplay.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
