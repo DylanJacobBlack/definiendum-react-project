@@ -4,7 +4,7 @@
   overflow: hidden;
   display: flex;
   box-shadow: .5rem .5rem #88888831;
-  border: .5rem solid black;
+  border: .2rem solid rgb(255, 255, 255);
 }
 
 .image {
